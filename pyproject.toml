@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "hhru-project"
+version = "0.1.0"
+description = "HH.ru project, search your best work place"
+authors = ["Alex Pavlov <yukiu217@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
