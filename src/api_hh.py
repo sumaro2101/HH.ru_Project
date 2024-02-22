@@ -28,20 +28,20 @@ class HhVacancies(ApiHh):
     __url: ClassVar[HttpUrl] = 'https://api.hh.ru/vacancies'
     __response : ClassVar[Union[dict, None]] = None
     
-    name: str
+    name: str = Field(max_length=20)
     per_page: int = Field(ge=0, default=10)
     page: int = Field(ge=0, default=20)
     
 
+    def model_post_init(self, __context: Any) -> None:
+        HhVacancies.response = self._sort_json_response()
+        
+        
     @property
     def response(self) -> Dict:
         """Возращает готовый и обработанный запрос
         """        
         return self.__response
-
-
-    def model_post_init(self, __context: Any) -> None:
-        HhVacancies.response = self._sort_json_response()
 
 
     def _sort_json_response(self) -> Dict:
