@@ -4,6 +4,7 @@ from src.vacancies import Vacancy
 @pytest.mark.vacancy
 class TestVacancy:
     
-    def test_vacancy(self, init_api):
-        vacancy = Vacancy.model_validate(init_api.response[0])
-        assert vacancy.name is not None
+    def test_vacancy(self, test_model):
+        vacancy = Vacancy.model_validate(test_model)
+        
+        assert vacancy.area.model_dump() == {'name': 'Москва'}

@@ -8,3 +8,7 @@ class TestFixture:
         
     def test_response(self, init_api):
         assert len(init_api.response) == 3
+        
+    def test_full_queue(self, queue_full):
+        assert queue_full.qsize() == 3
+    

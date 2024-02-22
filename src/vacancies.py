@@ -48,7 +48,7 @@ class Vacancy(AbstractVacancies):
     model_config = ConfigDict(frozen=True)
     
     name: str
-    area: Area
+    area: Area 
     professional_roles: List[ProfessionalRoles]
     salary: Salary
     experience: Experience
