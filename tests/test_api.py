@@ -50,7 +50,7 @@ class TestApi:
             init_api.per_page = 'raise'
        
         
-    def test_response(self, init_api):
+    def test_response_param(self, init_api):
         """Тест исключения в случае попытки изменить параметр
 
         Args:
@@ -71,7 +71,7 @@ class TestApi:
         with pytest.raises(ValidationError):
             HhVacancies(name=10)
             
-            
+    @pytest.mark.skip(reason='Этот тест зависит от состояния страницы, есть возможность существования страницы - не зависит от меня')       
     def test_raise_page_not_found(self):
         """Тест исключения в случае попытки получить не существующую страницу
 
@@ -90,5 +90,5 @@ class TestApi:
             init_api (fixture): инициализированная модель
         """    
             
-        assert init_api.response[0] is not None
+        assert len(init_api.response) == 3       
         
