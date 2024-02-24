@@ -1,9 +1,11 @@
+from pprint import pprint
 import requests
 import os
-from pydantic import BaseModel, ConfigDict, HttpUrl, Field
+from pydantic import BaseModel, ConfigDict, HttpUrl, Field, field_validator
 from typing import Any, Union, ClassVar, Dict, List
 from abc import ABC, abstractmethod
 
+from src.enum_town import EnumTown
 
 class AbstractApi(BaseModel, ABC):
     """Абстрактный класс API модели
@@ -83,7 +85,7 @@ class MixinConvert:
                 if item['salary']['to']:
                     item['salary']['to'] = int(valute_item / valute_rate)
                     
-        return converted
+        HhVacancies._response = converted
 
 
 class MixinSort:
@@ -104,7 +106,7 @@ class MixinSort:
         except TypeError:
             raise TypeError('К сожалению такой страницы не существует, попробуйте выбрать другую (page)')
         
-        return sorted_json
+        HhVacancies._response = sorted_json
     
 
 class HhVacancies(MixinSort, MixinConvert, AbstractApi):
@@ -118,6 +120,7 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
     name: str = Field(max_length=20)
     per_page: int = Field(ge=0, default=10)
     page: int = Field(ge=0, default=20)
+    town: Union[str, None] = None 
     convert_to_RUB: bool = False
     
 
@@ -126,12 +129,29 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
         if self.convert_to_RUB:
             self._convert_valute()
         self._sort_json_response()
+        
+        
+    @field_validator('town')
+    @classmethod
+    def town(cls, value):
+        if value is None:
+            return None
+        
+        value = value.replace('-', '').replace(' ', '').lower().title()
+        if value not in [item.name for item in EnumTown]:
+            raise ValueError
+        
+        return value
          
     @property
     def response(self) -> Dict:
         """Возращает готовый и обработанный запрос
         """        
         return self._response
+    
+    def make_id_of_town(self, town):
+        if town is not None:
+            return EnumTown[town].value
     
     def _build_response(self) -> Dict:
         """Отправка запроса
@@ -148,7 +168,7 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
             'text': self.name,
             'per_page': self.per_page,
             'page': self.page,
-            'only_with_salary': True
-            
+            'only_with_salary': True,
+            'area': self.make_id_of_town(self.town)
         }
         return params
