@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl, computed_field
 from abc import ABC
 from typing import Union, Dict, List
-
+from enum import Enum
 
 class AbstractVacancies(BaseModel, ABC):
     
@@ -25,7 +25,8 @@ class ProfessionalRoles(BaseModel):
 class Salary(BaseModel):
     from_: Union[int, None] = Field(alias='from')
     to: Union[int, None]
-    
+    currency: str
+
 class Experience(BaseModel):
     name: Union[str, None]
     

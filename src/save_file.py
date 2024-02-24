@@ -22,7 +22,7 @@ class SaveToJson(AbstractSaveFile):
         with open(path, self.mode, encoding='utf-8') as file:
             while vacance.qsize() != 0:
                 item = vacance.get()
-                file.write(item.model_dump_json(indent=2))
+                file.write(item.model_dump_json(indent=2, exclude='currency'))
   
             
 class SaveToText(AbstractSaveFile):
@@ -33,7 +33,7 @@ class SaveToText(AbstractSaveFile):
         with open(path, self.mode, encoding='utf-8') as file:
             while vacance.qsize() != 0:
                 item = vacance.get()
-                file.writelines(item.model_dump_json().replace('{', '\n').replace('}', '\n'))
+                file.writelines(item.model_dump_json(exclude='currency').replace('{', '\n').replace('}', '\n'))
     
 class SaveToCsv(AbstractSaveFile):
     
@@ -45,4 +45,4 @@ class SaveToCsv(AbstractSaveFile):
             file_csv.writeheader()
             while vacance.qsize() != 0:
                 item = vacance.get()
-                file_csv.writerow(item.model_dump(exclude=('experience', 'schedule', 'snippet', 'employment', 'employer')))
+                file_csv.writerow(item.model_dump(exclude=('experience', 'schedule', 'snippet', 'employment', 'employer', 'currency')))
