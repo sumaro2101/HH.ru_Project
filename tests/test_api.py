@@ -14,7 +14,7 @@ class TestApi:
             init_api (fixture): инициализированная модель
         """    
             
-        assert init_api.model_dump() == {'name': 'python', 'page': 0, 'per_page': 3}
+        assert init_api.model_dump() == {'convert_to_RUB': False, 'name': 'python', 'page': 0, 'per_page': 3, 'town': None}
          
          
     def test_raise_name(self, init_api):

@@ -1,4 +1,3 @@
-from pprint import pprint
 import requests
 import os
 from pydantic import BaseModel, ConfigDict, HttpUrl, Field, field_validator
@@ -59,7 +58,9 @@ class ApiChange(AbstractApi):
       return response
 
 
-class MixinConvert:
+class MixinConvert(BaseModel, extra='allow'):
+    
+    convert_to_RUB: bool = False
     
     def _make_list_for_convert(self):
         currencies = []
@@ -88,7 +89,10 @@ class MixinConvert:
         HhVacancies._response = converted
 
 
-class MixinSort:
+class MixinSort(BaseModel, extra='allow'):
+    
+    def __init_subclass__(cls, **kwargs: ConfigDict):
+        return super().__init_subclass__(**kwargs)
         
     def _sort_json_response(self) -> Dict:
         """Сортировка JSON файла по зарплате
@@ -109,7 +113,18 @@ class MixinSort:
         HhVacancies._response = sorted_json
     
 
-class HhVacancies(MixinSort, MixinConvert, AbstractApi):
+class MixinTown(BaseModel, extra='allow'):
+    
+    def __init_subclass__(cls, **kwargs: ConfigDict):
+        return super().__init_subclass__(**kwargs)
+    town: Union[str, None] = None
+    
+    def make_id_of_town(self, town):
+        if town is not None:
+            return EnumTown[town].value
+
+
+class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     """API модель запроса вакансии
     """    
     model_config = ConfigDict(frozen=True)
@@ -117,11 +132,13 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
     __url: ClassVar[HttpUrl] = 'https://api.hh.ru/vacancies'
     _response : ClassVar[Union[dict, None]] = None
     
+    def __init_subclass__(cls, **kwargs: ConfigDict):
+        return super().__init_subclass__(**kwargs)
     name: str = Field(max_length=20)
     per_page: int = Field(ge=0, default=10)
-    page: int = Field(ge=0, default=20)
-    town: Union[str, None] = None 
-    convert_to_RUB: bool = False
+    page: int = Field(ge=0, default=0)
+     
+    
     
 
     def model_post_init(self, __context: Any) -> None:
@@ -149,10 +166,6 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
         """        
         return self._response
     
-    def make_id_of_town(self, town):
-        if town is not None:
-            return EnumTown[town].value
-    
     def _build_response(self) -> Dict:
         """Отправка запроса
         """ 
@@ -169,6 +182,8 @@ class HhVacancies(MixinSort, MixinConvert, AbstractApi):
             'per_page': self.per_page,
             'page': self.page,
             'only_with_salary': True,
-            'area': self.make_id_of_town(self.town)
+            'area': self.make_id_of_town(self.town),
+            'clusters': True
         }
         return params
+

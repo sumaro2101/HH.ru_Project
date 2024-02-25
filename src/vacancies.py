@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, computed_field
 from abc import ABC
 from typing import Union, Dict, List
-from enum import Enum
 
 class AbstractVacancies(BaseModel, ABC):
     
