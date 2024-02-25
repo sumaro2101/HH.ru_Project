@@ -4,6 +4,7 @@ from queue import Queue
 from typing import Literal, Type
 from csv import DictWriter
 
+from queue import Queue
 
 class AbstractSaveFile(BaseModel, ABC):
 
@@ -33,7 +34,7 @@ class SaveToText(AbstractSaveFile):
         with open(path, self.mode, encoding='utf-8') as file:
             while vacance.qsize() != 0:
                 item = vacance.get()
-                file.writelines(item.model_dump_json().replace('{', '\n').replace('}', '\n'))
+                file.write(item.model_dump_json().replace(('{'), '\n').replace('}', '\n'))
     
 class SaveToCsv(AbstractSaveFile):
     

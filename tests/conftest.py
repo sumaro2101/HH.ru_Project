@@ -5,7 +5,12 @@ from queue import Queue
 
 @pytest.fixture(scope='class')
 def init_api():
-    api_hh = HhVacancies(name='python', per_page=3, page=0)
+    api_hh = HhVacancies(name='python', per_page=3, page=0, town=None)
+    return api_hh
+
+@pytest.fixture(scope='class')
+def init_api_convert():
+    api_hh = HhVacancies(name='python', per_page=10, page=1, convert_to_RUB=True, town=None)
     return api_hh
 
 @pytest.fixture(scope='function')
@@ -25,7 +30,7 @@ def test_model():
         'name': 'Junior-разработчик',
         'area': {'id': '1', 'name': 'Москва', 'url': 'https://api.hh.ru/areas/1'},
         'professional_roles': [{'id': '96', 'name': 'Программист, разработчик'}],
-        'salary': {'currency': 'RUR', 'from': 60000, 'gross': False, 'to': None},
+        'salary': {'currency': 'EUR', 'from': 600, 'gross': False, 'to': 1200},
         'experience': {'id': 'noExperience', 'name': 'Нет опыта'},
         'employment': {'id': 'full', 'name': 'Полная занятость'},
         'schedule': {'id': 'fullDay', 'name': 'Полный день'},
