@@ -62,26 +62,26 @@ class MixinConvert(BaseModel, extra='allow'):
     
     convert_to_RUB: bool = False
     
-    def _make_list_for_convert(self):
+    def _make_list_for_convert(self, list_):
         currencies = []
         [currencies.append(item['salary']['currency']) 
-         for item in self._response 
+         for item in list_
          if item['salary']['currency'] != 'RUR' and item['salary']['currency'] not in currencies]
         
         return currencies
     
-    def get_rate_currency(self, list):
-        rates = ApiChange(symbols=list)
+    def get_rate_currency(self, list_):
+        rates = ApiChange(symbols=list_)
         if rates.ex_change.get('rates'):
             return rates.ex_change
 
-    def _convert_valute(self):
-        converted = self._response
-        if self.get_rate_currency(self._make_list_for_convert()):
+    def _convert_valute(self, list_):
+        converted = list_
+        if self.get_rate_currency(self._make_list_for_convert(list_)):
             for item in converted:
                 if item['salary']['currency'] != 'RUR':
                     valute_item = item['salary']['from']
-                    valute_rate = self.get_rate_currency(self._make_list_for_convert())[item['salary']['currency']]
+                    valute_rate = self.get_rate_currency(self._make_list_for_convert(list_))[item['salary']['currency']]
                     
                     item['salary']['from'] = int(valute_item / valute_rate)
                     if item['salary']['to']:
@@ -95,7 +95,7 @@ class MixinSort(BaseModel, extra='allow'):
     def __init_subclass__(cls, **kwargs: ConfigDict):
         return super().__init_subclass__(**kwargs)
         
-    def _sort_json_response(self) -> Dict:
+    def _sort_json_response(self, dict_) -> Dict:
         """Сортировка JSON файла по зарплате
 
         Raises:
@@ -105,11 +105,7 @@ class MixinSort(BaseModel, extra='allow'):
             Dict: Возращает осотрированный словарь
         """  
               
-        try:
-            sorted_json = sorted(self._response, key=lambda x: x['salary']['from'], reverse=True)
-            
-        except TypeError:
-            raise TypeError('К сожалению такой страницы не существует, попробуйте выбрать другую (page)')
+        sorted_json = sorted(dict_, key=lambda x: x['salary']['from'], reverse=True)
         
         HhVacancies._response = sorted_json
     
@@ -135,15 +131,15 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     
     def __init_subclass__(cls, **kwargs: ConfigDict):
         return super().__init_subclass__(**kwargs)
-    name: str = Field(max_length=20)
-    per_page: int = Field(ge=0, default=10)
-    page: int = Field(ge=0, default=0)
+    name: Union[str, None] = Field(max_length=20)
+    per_page: Union[int, None] = Field(ge=0, default=10)
+    page: Union[int, None] = Field(ge=0, default=0)
 
     def model_post_init(self, __context: Any) -> None:
         self._build_response()
         if self.convert_to_RUB:
-            self._convert_valute()
-        self._sort_json_response()
+            self._convert_valute(self._response)
+        self._sort_json_response(self._response)
         
         
     @field_validator('town')
@@ -164,13 +160,20 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
         """        
         return self._response
     
+    def _remove_null_instanse(self, list_):
+        ready_list = list_
+        for item in ready_list:
+            if item['salary']['from'] is None:
+                item['salary']['from'] = 0
+        return ready_list
+    
     def _build_response(self) -> Dict:
         """Отправка запроса
         """ 
                
         request_api = requests.request('GET', self.__url, params=self._make_params())
         
-        HhVacancies._response = request_api.json()['items']
+        HhVacancies._response = self._remove_null_instanse(request_api.json()['items'])
     
     def _make_params(self) -> Dict:
         """Собирает параметры для запроса
