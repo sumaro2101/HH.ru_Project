@@ -10,7 +10,7 @@ def init_api():
 
 @pytest.fixture(scope='class')
 def init_api_convert():
-    api_hh = HhVacancies(name='python', per_page=10, page=20, convert_to_RUB=True, town=None)
+    api_hh = HhVacancies(name='python', per_page=10, page=1, convert_to_RUB=True, town=None)
     return api_hh
 
 @pytest.fixture(scope='function')

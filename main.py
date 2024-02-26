@@ -1,7 +1,6 @@
 from src.user_intaraction import UserInteraction, StopUserProgram
 
 
-
 def main():
     print('Приветствую тебя странник')
     
@@ -35,7 +34,8 @@ def main():
             convert = input()
             if not convert:
                 convert = False
-            convert = True
+            else:
+                convert = True
             
             print('\nПриступаю к обработке информации')
             
@@ -43,11 +43,8 @@ def main():
                 UserInteraction.save_to_file(name=prof, page=page, per_page=vacancies, convert_to_RUB=convert, town=town)
                 
             except StopUserProgram:
-                continue
+                break
             
-            except TypeError:
-                print('На данной странице произошла ошибка, попробуй другую')
-                continue
                 
             print('\nЖелаешь повторить поиск?')
             print('Возможно хочешь выбрать другую страницу либо изменить количество вакансий')
@@ -62,7 +59,7 @@ def main():
         UserInteraction.user_notification_choise()
         
         if not input():
-            print('\nДо встречи странник! Удачи!')
+            print('\nДо встречи странник! Да прибудет с тобой Таллос!')
             break
         continue
 

@@ -29,7 +29,7 @@ class ApiChange(AbstractApi):
     symbols: List
     
     def model_post_init(self, __context: Any) -> None:
-       ApiChange.ex_change = self._build_response()['rates']
+       ApiChange.ex_change = self._build_response()
     
     @property
     def ex_change(self):
@@ -72,19 +72,20 @@ class MixinConvert(BaseModel, extra='allow'):
     
     def get_rate_currency(self, list):
         rates = ApiChange(symbols=list)
-        
-        return rates.ex_change
+        if rates.ex_change.get('rates'):
+            return rates.ex_change
 
     def _convert_valute(self):
         converted = self._response
-        for item in converted:
-            if item['salary']['currency'] != 'RUR':
-                valute_item = item['salary']['from']
-                valute_rate = self.get_rate_currency(self._make_list_for_convert())[item['salary']['currency']]
-                
-                item['salary']['from'] = int(valute_item / valute_rate)
-                if item['salary']['to']:
-                    item['salary']['to'] = int(valute_item / valute_rate)
+        if self.get_rate_currency(self._make_list_for_convert()):
+            for item in converted:
+                if item['salary']['currency'] != 'RUR':
+                    valute_item = item['salary']['from']
+                    valute_rate = self.get_rate_currency(self._make_list_for_convert())[item['salary']['currency']]
+                    
+                    item['salary']['from'] = int(valute_item / valute_rate)
+                    if item['salary']['to']:
+                        item['salary']['to'] = int(valute_item / valute_rate)
                     
         HhVacancies._response = converted
 
@@ -137,9 +138,6 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     name: str = Field(max_length=20)
     per_page: int = Field(ge=0, default=10)
     page: int = Field(ge=0, default=0)
-     
-    
-    
 
     def model_post_init(self, __context: Any) -> None:
         self._build_response()
