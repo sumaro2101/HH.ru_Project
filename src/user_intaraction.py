@@ -92,8 +92,9 @@ class UserInteraction:
                         print('\n1. Хочешь переписать файл?')
                         print('2. Хочешь дополнить файл?')
                         choice_mode = input()
-                        
-                        if cls.validate_int(choice_mode):
+                        if not choice_mode.isdigit():
+                            continue
+                        if cls.validate_int(choice_mode) and int(choice_mode) < 3:
                             choice_mode = cls._ask_mode(mode=choice_mode)   
                         else:
                             continue
