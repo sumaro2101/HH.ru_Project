@@ -63,8 +63,6 @@ class UserInteraction:
                 if len(vacancies.response) == 0:
                     raise EmptyResult
                 
-                queue_models = Queue()
-                [queue_models.put(Vacancy.model_validate(item)) for item in vacancies.response]
                 print('Обработка информации успешно завершена!')
                 
             except EmptyResult:
@@ -100,6 +98,8 @@ class UserInteraction:
                         else:
                             continue
                         
+                        queue_models = Queue()
+                        [queue_models.put(Vacancy.model_validate(item)) for item in vacancies.response]
                         cls._ask_format(format=choice_format, mode=choice_mode, queue=queue_models)                  
                         break
                     
@@ -109,7 +109,6 @@ class UserInteraction:
                     if not input(): 
                         break
                     
-                    [queue_models.put(Vacancy.model_validate(item)) for item in vacancies.response]
                     continue
 
                 else:
