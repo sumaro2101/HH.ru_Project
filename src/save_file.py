@@ -14,6 +14,14 @@ class AbstractSaveFile(BaseModel, ABC):
     def save_to_file(self, vacance, path):
         pass
 
+    @abstractmethod
+    def change_to_file(self, path):
+        pass
+    
+    @abstractmethod
+    def delete_of_file(self, path):
+        pass
+        
 
 class SaveToJson(AbstractSaveFile):
     
@@ -24,6 +32,12 @@ class SaveToJson(AbstractSaveFile):
             while vacance.qsize() != 0:
                 item = vacance.get()
                 file.write(item.model_dump_json(indent=2))
+                
+    def change_to_file(self, path):
+        pass
+    
+    def delete_of_file(self, path):
+        pass
   
             
 class SaveToText(AbstractSaveFile):
@@ -35,6 +49,12 @@ class SaveToText(AbstractSaveFile):
             while vacance.qsize() != 0:
                 item = vacance.get()
                 file.write(item.model_dump_json().replace(('{'), '\n').replace('}', '\n'))
+                
+    def change_to_file(self, path):
+        pass
+    
+    def delete_of_file(self, path):
+        pass
     
 class SaveToCsv(AbstractSaveFile):
     
@@ -47,3 +67,20 @@ class SaveToCsv(AbstractSaveFile):
             while vacance.qsize() != 0:
                 item = vacance.get()
                 file_csv.writerow(item.model_dump(exclude=('experience', 'schedule', 'snippet', 'employment', 'employer')))
+                
+    def change_to_file(self, path):
+        pass
+    
+    def delete_of_file(self, path):
+        pass
+    
+class SaveToDb(AbstractSaveFile):
+    
+    def save_to_file(self, vacance, path):
+        pass
+    
+    def change_to_file(self, path):
+        pass
+    
+    def delete_of_file(self, path):
+        pass
