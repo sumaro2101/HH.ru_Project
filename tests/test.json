@@ -343,7 +343,7 @@
       "url": "https://api.hh.ru/areas/1"
     },
     "salary": {
-      "from": null,
+      "from": 0,
       "to": 60000,
       "currency": "RUR",
       "gross": true
