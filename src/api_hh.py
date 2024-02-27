@@ -20,6 +20,11 @@ class AbstractApi(BaseModel, ABC):
 
 
 class ApiChange(AbstractApi):
+    """Апи который отвечает за перевод иностранной валюты
+
+    Returns:
+        dict: Возвращает ответ с индексами необходимых иностранных валют
+    """    
     
     __url: ClassVar[HttpUrl] = 'https://api.apilayer.com/exchangerates_data/latest?'
     __api: ClassVar[str] = os.environ.get('API_EXCHANGE')
@@ -29,13 +34,16 @@ class ApiChange(AbstractApi):
     symbols: List
     
     def model_post_init(self, __context: Any) -> None:
-       ApiChange.ex_change = self._build_response()
+        ApiChange.ex_change = self._build_response()
     
     @property
-    def ex_change(self):
-      return self.__ex_change
+    def ex_change(self) -> Dict:
+        return self.__ex_change
     
     def _make_params(self):
+        """Параметры для запроса (почему то не работает, сделал в ручную)
+        """   
+             
         params = {      
           'symbol': self.symbols,
           'base': self.__base
@@ -44,38 +52,76 @@ class ApiChange(AbstractApi):
         return params
       
     def _make_header(self):
-      header = {
+        """Заголовок для запроса
+        """   
+             
+        header = {
         'apikey': self.__api
-      }
+        }
       
-      return header
+        return header
     
-    def _build_response(self):
-      requests_api = requests.request('GET', f'{self.__url}symbols={'%2C%20'.join(self.symbols)}\
-        &base={self.__base}', headers=self._make_header())
-      response = requests_api.json()
-      
-      return response
+    def _build_response(self) -> Dict:
+        """Построение запроса исходя из всех полученных параметров
+
+        Returns:
+            Dict: Возращает ответ от сокета сервера
+        """
+                
+        requests_api = requests.request('GET', f'{self.__url}symbols={'%2C%20'.join(self.symbols)}\
+            &base={self.__base}', headers=self._make_header())
+        response = requests_api.json()
+        
+        return response
 
 
 class MixinConvert(BaseModel, extra='allow'):
-    
+    """Миксин для внедрения Exchange в основную программу
+    """   
+     
     convert_to_RUB: bool = False
     
-    def _make_list_for_convert(self, list_):
+    def _make_list_for_convert(self, list_: List[Dict]):
+        """Метод который проходится по списку объектов и выводит иностранные валюты
+
+        Args:
+            list_ (List[Dict]): Список с объектами
+        """  
+              
         currencies = []
+        
         [currencies.append(item['salary']['currency']) 
          for item in list_
          if item['salary']['currency'] != 'RUR' and item['salary']['currency'] not in currencies]
         
         return currencies
     
-    def get_rate_currency(self, list_):
+    def get_rate_currency(self, list_: List[str]) -> Dict:
+        """API которое получает список валют которые войдут в запрос
+
+        Args:
+            list_ (List[str]): Список валют
+
+        Returns:
+            Dict: Возращает результат запроса с индексами указанных валют
+        """ 
+               
         rates = ApiChange(symbols=list_)
+        
         if rates.ex_change.get('rates'):
             return rates.ex_change
 
-    def _convert_valute(self, list_):
+    def _convert_valute(self, list_: List[Dict]) -> List[Dict]:
+        """Метод который проходится по списку с объетами и меняет 
+        значение денежного эквивалетна у тех у котого иностранная валюта
+
+        Args:
+            list_ (List[Dict]): Список до конвертации
+
+        Returns:
+            List[Dict]: Список после конвертации
+        """    
+            
         converted = list_
         if self.get_rate_currency(self._make_list_for_convert(list_)):
             for item in converted:
@@ -91,18 +137,17 @@ class MixinConvert(BaseModel, extra='allow'):
 
 
 class MixinSort(BaseModel, extra='allow'):
+    """Миксин сортировки объектов по определенному значению
+    """    
     
     def __init_subclass__(cls, **kwargs: ConfigDict):
         return super().__init_subclass__(**kwargs)
         
-    def _sort_json_response(self, dict_) -> Dict:
+    def _sort_json_response(self, dict_: List[Dict]) -> List[Dict]:
         """Сортировка JSON файла по зарплате
 
-        Raises:
-            TypeError: Если страница не существует 
-
         Returns:
-            Dict: Возращает осотрированный словарь
+            Dict: Возращает отсортированный словарь
         """  
               
         sorted_json = sorted(dict_, key=lambda x: x['salary']['from'], reverse=True)
@@ -111,19 +156,31 @@ class MixinSort(BaseModel, extra='allow'):
     
 
 class MixinTown(BaseModel, extra='allow'):
+    """Миксин итеграции функциональности поиска по определенному городу
+    """    
     
     def __init_subclass__(cls, **kwargs: ConfigDict):
         return super().__init_subclass__(**kwargs)
     town: Union[str, None] = None
     
-    def make_id_of_town(self, town):
+    def make_id_of_town(self, town: str) -> int:
+        """Метод получает имя города и возразает ID
+
+        Args:
+            town (str): имя города
+
+        Returns:
+            int: ID города
+        """  
+              
         if town is not None:
             return EnumTown[town].value
 
 
 class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     """API модель запроса вакансии
-    """    
+    """  
+      
     model_config = ConfigDict(frozen=True)
         
     __url: ClassVar[HttpUrl] = 'https://api.hh.ru/vacancies'
@@ -136,6 +193,10 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     page: Union[int, None] = Field(ge=0, default=0)
 
     def model_post_init(self, __context: Any) -> None:
+        """Метод пост-инициализации, меняет состояние выходящего запроса
+        исходя из параметров
+        """   
+             
         self._build_response()
         if self.convert_to_RUB:
             self._convert_valute(self._response)
@@ -144,7 +205,10 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
         
     @field_validator('town')
     @classmethod
-    def town(cls, value):
+    def town(cls, value: Union[str, None]) -> Union[str, None]:
+        """Валидация параметра город
+        """  
+              
         if value is None:
             return None
         
@@ -157,27 +221,36 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     @property
     def response(self) -> Dict:
         """Возращает готовый и обработанный запрос
-        """        
+        """    
+            
         return self._response
     
-    def _remove_null_instanse(self, list_):
+    def _remove_null_instanse(self, list_: List[Dict]):
+        """Метод переработки объектов в запросе и замена None на 0 в salary
+
+        Args:
+            list_ (List[Dict]): Список до обработки
+        """        
         ready_list = list_
+        
         for item in ready_list:
             if item['salary']['from'] is None:
                 item['salary']['from'] = 0
+                
         return ready_list
     
-    def _build_response(self) -> Dict:
-        """Отправка запроса
+    def _build_response(self) -> List[Dict]:
+        """Метод отправки запроса
         """ 
                
         request_api = requests.request('GET', self.__url, params=self._make_params())
         
         HhVacancies._response = self._remove_null_instanse(request_api.json()['items'])
     
-    def _make_params(self) -> Dict:
-        """Собирает параметры для запроса
-        """        
+    def _make_params(self):
+        """метод который собирает параметры для запроса
+        """  
+              
         params = {
             'text': self.name,
             'per_page': self.per_page,
@@ -187,4 +260,3 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
             'clusters': True
         }
         return params
-
