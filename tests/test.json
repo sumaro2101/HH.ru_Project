@@ -1,0 +1,413 @@
+[
+  {
+    "id": "92810912",
+    "premium": false,
+    "name": "Middle QA engineer (remote)",
+    "department": null,
+    "has_test": false,
+    "response_letter_required": false,
+    "area": {
+      "id": "2758",
+      "name": "Тбилиси",
+      "url": "https://api.hh.ru/areas/2758"
+    },
+    "salary": {
+      "from": 2300,
+      "to": 2500,
+      "currency": "USD",
+      "gross": false
+    },
+    "type": {
+      "id": "open",
+      "name": "Открытая"
+    },
+    "address": null,
+    "response_url": null,
+    "sort_point_distance": null,
+    "published_at": "2024-02-07T10:13:29+0300",
+    "created_at": "2024-02-07T10:13:29+0300",
+    "archived": false,
+    "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=92810912",
+    "show_logo_in_search": null,
+    "insider_interview": null,
+    "url": "https://api.hh.ru/vacancies/92810912?host=hh.ru",
+    "alternate_url": "https://hh.ru/vacancy/92810912",
+    "relations": [],
+    "employer": {
+      "id": "9387815",
+      "name": "Telleqt",
+      "url": "https://api.hh.ru/employers/9387815",
+      "alternate_url": "https://hh.ru/employer/9387815",
+      "logo_urls": {
+        "240": "https://hhcdn.ru/employer-logo/5759213.png",
+        "90": "https://hhcdn.ru/employer-logo/5759212.png",
+        "original": "https://hhcdn.ru/employer-logo-original/1034613.png"
+      },
+      "vacancies_url": "https://api.hh.ru/vacancies?employer_id=9387815",
+      "accredited_it_employer": false,
+      "trusted": true
+    },
+    "snippet": {
+      "requirement": "Requirements: Solid background in QA of UI and REST API. Additional advantages: Linux, <highlighttext>Python</highlighttext>, AWS. Collaboration skills and working with...",
+      "responsibility": "Quality assurance of an analytics product."
+    },
+    "contacts": null,
+    "schedule": {
+      "id": "remote",
+      "name": "Удаленная работа"
+    },
+    "working_days": [],
+    "working_time_intervals": [],
+    "working_time_modes": [],
+    "accept_temporary": true,
+    "professional_roles": [
+      {
+        "id": "124",
+        "name": "Тестировщик"
+      }
+    ],
+    "accept_incomplete_resumes": false,
+    "experience": {
+      "id": "between1And3",
+      "name": "От 1 года до 3 лет"
+    },
+    "employment": {
+      "id": "full",
+      "name": "Полная занятость"
+    },
+    "adv_response_url": null,
+    "is_adv_vacancy": false,
+    "adv_context": null
+  },
+  {
+    "id": "93746161",
+    "premium": false,
+    "name": "Разработчик Python",
+    "department": null,
+    "has_test": false,
+    "response_letter_required": false,
+    "area": {
+      "id": "95",
+      "name": "Тюмень",
+      "url": "https://api.hh.ru/areas/95"
+    },
+    "salary": {
+      "from": 70000,
+      "to": 90000,
+      "currency": "RUR",
+      "gross": false
+    },
+    "type": {
+      "id": "open",
+      "name": "Открытая"
+    },
+    "address": null,
+    "response_url": null,
+    "sort_point_distance": null,
+    "published_at": "2024-02-25T22:03:43+0300",
+    "created_at": "2024-02-25T22:03:43+0300",
+    "archived": false,
+    "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=93746161",
+    "show_logo_in_search": null,
+    "insider_interview": null,
+    "url": "https://api.hh.ru/vacancies/93746161?host=hh.ru",
+    "alternate_url": "https://hh.ru/vacancy/93746161",
+    "relations": [],
+    "employer": {
+      "id": "4732028",
+      "name": "RLT (ООО Надежные Лояльные Технологии)",
+      "url": "https://api.hh.ru/employers/4732028",
+      "alternate_url": "https://hh.ru/employer/4732028",
+      "logo_urls": {
+        "original": "https://hhcdn.ru/employer-logo-original/1037608.jpg",
+        "240": "https://hhcdn.ru/employer-logo/5771189.jpeg",
+        "90": "https://hhcdn.ru/employer-logo/5771188.jpeg"
+      },
+      "vacancies_url": "https://api.hh.ru/vacancies?employer_id=4732028",
+      "accredited_it_employer": false,
+      "trusted": true
+    },
+    "snippet": {
+      "requirement": "Будет плюсом: Опыт работы с транзакциями в MongoDB. Понимание принципов блокировок ресурсов при использовании celery.  3. Если твой текущий уровень...",
+      "responsibility": "В основном ты будешь заниматься разработкой бекендов находящихся под постоянной нагрузкой, принимать участие в обсуждении архитектурных решений."
+    },
+    "contacts": null,
+    "schedule": {
+      "id": "remote",
+      "name": "Удаленная работа"
+    },
+    "working_days": [],
+    "working_time_intervals": [],
+    "working_time_modes": [],
+    "accept_temporary": false,
+    "professional_roles": [
+      {
+        "id": "96",
+        "name": "Программист, разработчик"
+      }
+    ],
+    "accept_incomplete_resumes": false,
+    "experience": {
+      "id": "between1And3",
+      "name": "От 1 года до 3 лет"
+    },
+    "employment": {
+      "id": "full",
+      "name": "Полная занятость"
+    },
+    "adv_response_url": null,
+    "is_adv_vacancy": false,
+    "adv_context": null
+  },
+  {
+    "id": "93483136",
+    "premium": false,
+    "name": "Frontend-разработчик",
+    "department": null,
+    "has_test": false,
+    "response_letter_required": false,
+    "area": {
+      "id": "2",
+      "name": "Санкт-Петербург",
+      "url": "https://api.hh.ru/areas/2"
+    },
+    "salary": {
+      "from": 40000,
+      "to": null,
+      "currency": "RUR",
+      "gross": false
+    },
+    "type": {
+      "id": "open",
+      "name": "Открытая"
+    },
+    "address": null,
+    "response_url": null,
+    "sort_point_distance": null,
+    "published_at": "2024-02-19T16:57:34+0300",
+    "created_at": "2024-02-19T16:57:34+0300",
+    "archived": false,
+    "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=93483136",
+    "show_logo_in_search": null,
+    "insider_interview": null,
+    "url": "https://api.hh.ru/vacancies/93483136?host=hh.ru",
+    "alternate_url": "https://hh.ru/vacancy/93483136",
+    "relations": [],
+    "employer": {
+      "id": "5087058",
+      "name": "Касьянов Денис Константинович",
+      "url": "https://api.hh.ru/employers/5087058",
+      "alternate_url": "https://hh.ru/employer/5087058",
+      "logo_urls": {
+        "original": "https://hhcdn.ru/employer-logo-original/1055831.jpg",
+        "90": "https://hhcdn.ru/employer-logo/5843965.jpeg",
+        "240": "https://hhcdn.ru/employer-logo/5843966.jpeg"
+      },
+      "vacancies_url": "https://api.hh.ru/vacancies?employer_id=5087058",
+      "accredited_it_employer": false,
+      "trusted": true
+    },
+    "snippet": {
+      "requirement": "Навыки: ⁃ HTML/CSS. ⁃ React. - PSQL. ⁃ Умение работать с серверами на базе Linux. ⁃ Ответственность и внимательность к деталям. Будет плюсом: ⁃ PHP. ⁃ ",
+      "responsibility": "Разработка внутренней CRM. - Написание скриптов. ⁃ Проявлять инициативу."
+    },
+    "contacts": null,
+    "schedule": {
+      "id": "fullDay",
+      "name": "Полный день"
+    },
+    "working_days": [],
+    "working_time_intervals": [],
+    "working_time_modes": [],
+    "accept_temporary": false,
+    "professional_roles": [
+      {
+        "id": "96",
+        "name": "Программист, разработчик"
+      }
+    ],
+    "accept_incomplete_resumes": false,
+    "experience": {
+      "id": "noExperience",
+      "name": "Нет опыта"
+    },
+    "employment": {
+      "id": "full",
+      "name": "Полная занятость"
+    },
+    "adv_response_url": null,
+    "is_adv_vacancy": false,
+    "adv_context": null
+  },
+  {
+    "id": "93696387",
+    "premium": false,
+    "name": "Middle Front-End Developer",
+    "department": null,
+    "has_test": false,
+    "response_letter_required": false,
+    "area": {
+      "id": "2759",
+      "name": "Ташкент",
+      "url": "https://api.hh.ru/areas/2759"
+    },
+    "salary": {
+      "from": 8000000,
+      "to": null,
+      "currency": "UZS",
+      "gross": false
+    },
+    "type": {
+      "id": "open",
+      "name": "Открытая"
+    },
+    "address": {
+      "city": "Ташкент",
+      "street": "проспект Мустакиллик",
+      "building": "105",
+      "lat": 41.325523376464844,
+      "lng": 69.32227325439453,
+      "description": null,
+      "raw": "Ташкент, проспект Мустакиллик, 105",
+      "metro": null,
+      "metro_stations": [],
+      "id": "13111273"
+    },
+    "response_url": null,
+    "sort_point_distance": null,
+    "published_at": "2024-02-23T08:52:18+0300",
+    "created_at": "2024-02-23T08:52:18+0300",
+    "archived": false,
+    "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=93696387",
+    "show_logo_in_search": null,
+    "insider_interview": null,
+    "url": "https://api.hh.ru/vacancies/93696387?host=hh.ru",
+    "alternate_url": "https://hh.ru/vacancy/93696387",
+    "relations": [],
+    "employer": {
+      "id": "9747225",
+      "name": "O‘ZBEKISTON AKKREDITATSIYA MARKAZI",
+      "url": "https://api.hh.ru/employers/9747225",
+      "alternate_url": "https://hh.ru/employer/9747225",
+      "logo_urls": {
+        "90": "https://hhcdn.ru/employer-logo/6544557.png",
+        "240": "https://hhcdn.ru/employer-logo/6544558.png",
+        "original": "https://hhcdn.ru/employer-logo-original/1231029.png"
+      },
+      "vacancies_url": "https://api.hh.ru/vacancies?employer_id=9747225",
+      "accredited_it_employer": false,
+      "trusted": true
+    },
+    "snippet": {
+      "requirement": "Понимание работы с Back-End'ом. Базовое знание языков программирования <highlighttext>Python</highlighttext> или PHP (одно из двух). Умение писать легко поддерживаемый...",
+      "responsibility": "Разработка UI/UX сайта. Верстка React компонентов. Умение работать в команде. Участие в разработке архитектуры новых проектов. Умение вникать в..."
+    },
+    "contacts": null,
+    "schedule": {
+      "id": "fullDay",
+      "name": "Полный день"
+    },
+    "working_days": [],
+    "working_time_intervals": [],
+    "working_time_modes": [],
+    "accept_temporary": true,
+    "professional_roles": [
+      {
+        "id": "96",
+        "name": "Программист, разработчик"
+      }
+    ],
+    "accept_incomplete_resumes": false,
+    "experience": {
+      "id": "between3And6",
+      "name": "От 3 до 6 лет"
+    },
+    "employment": {
+      "id": "full",
+      "name": "Полная занятость"
+    },
+    "adv_response_url": null,
+    "is_adv_vacancy": false,
+    "adv_context": null
+  },
+  {
+    "id": "93106678",
+    "premium": false,
+    "name": "Junior Python-разработчик",
+    "department": null,
+    "has_test": false,
+    "response_letter_required": false,
+    "area": {
+      "id": "1",
+      "name": "Москва",
+      "url": "https://api.hh.ru/areas/1"
+    },
+    "salary": {
+      "from": null,
+      "to": 60000,
+      "currency": "RUR",
+      "gross": true
+    },
+    "type": {
+      "id": "open",
+      "name": "Открытая"
+    },
+    "address": null,
+    "response_url": null,
+    "sort_point_distance": null,
+    "published_at": "2024-02-12T23:22:59+0300",
+    "created_at": "2024-02-12T23:22:59+0300",
+    "archived": false,
+    "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=93106678",
+    "show_logo_in_search": null,
+    "insider_interview": null,
+    "url": "https://api.hh.ru/vacancies/93106678?host=hh.ru",
+    "alternate_url": "https://hh.ru/vacancy/93106678",
+    "relations": [],
+    "employer": {
+      "id": "9521233",
+      "name": "EasyDev",
+      "url": "https://api.hh.ru/employers/9521233",
+      "alternate_url": "https://hh.ru/employer/9521233",
+      "logo_urls": {
+        "240": "https://hhcdn.ru/employer-logo/5826802.png",
+        "90": "https://hhcdn.ru/employer-logo/5826801.png",
+        "original": "https://hhcdn.ru/employer-logo-original/1051537.png"
+      },
+      "vacancies_url": "https://api.hh.ru/vacancies?employer_id=9521233",
+      "accredited_it_employer": false,
+      "trusted": true
+    },
+    "snippet": {
+      "requirement": "Уверенное владение языком программирования <highlighttext>Python</highlighttext>. Знание одного из следующих фреймворков: Django, DRF или FastAPI. Опыт работы с системой контроля версий...",
+      "responsibility": "Разработка и тестирование backend-части программного обеспечения в соответствии с техническим заданием. Поддержка и устранение недостатков в разработанном программном обеспечении. "
+    },
+    "contacts": null,
+    "schedule": {
+      "id": "fullDay",
+      "name": "Полный день"
+    },
+    "working_days": [],
+    "working_time_intervals": [],
+    "working_time_modes": [],
+    "accept_temporary": true,
+    "professional_roles": [
+      {
+        "id": "96",
+        "name": "Программист, разработчик"
+      }
+    ],
+    "accept_incomplete_resumes": false,
+    "experience": {
+      "id": "between1And3",
+      "name": "От 1 года до 3 лет"
+    },
+    "employment": {
+      "id": "full",
+      "name": "Полная занятость"
+    },
+    "adv_response_url": null,
+    "is_adv_vacancy": false,
+    "adv_context": null
+  }
+]

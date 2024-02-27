@@ -1,16 +1,26 @@
 import pytest
+import json
 from src.api_hh import HhVacancies
 from src.vacancies import Vacancy
 from queue import Queue
 
+
 @pytest.fixture(scope='class')
-def init_api():
-    api_hh = HhVacancies(name='python', per_page=3, page=0, town=None)
+def json_file():
+    with open('tests/test.json') as file:
+        result = json.load(file)
+        return result
+            
+@pytest.fixture(scope='class')
+def init_api(json_file):
+    api_hh = HhVacancies(name=None, per_page=None, page=None, town=None)
+    api_hh._sort_json_response(json_file)
     return api_hh
 
 @pytest.fixture(scope='class')
-def init_api_convert():
-    api_hh = HhVacancies(name='python', per_page=10, page=1, convert_to_RUB=True, town=None)
+def init_api_convert(json_file):
+    api_hh = HhVacancies(name=None, per_page=None, page=None, convert_to_RUB=True, town=None)
+    api_hh._convert_valute(json_file)
     return api_hh
 
 @pytest.fixture(scope='function')

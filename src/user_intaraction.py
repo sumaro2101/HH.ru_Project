@@ -54,9 +54,6 @@ class UserInteraction:
         user_page = int(page)
         
         while True:
-            if per_page < 0:
-                print('К сожалению на этой странице вакансий нет')
-                break
             try:
                 vacancies = HhVacancies(name=name, per_page=per_page, page=page, convert_to_RUB=convert_to_RUB, town=town)
                 
@@ -66,10 +63,6 @@ class UserInteraction:
                 print('Обработка информации успешно завершена!')
                 
             except EmptyResult:
-                per_page -= 1
-                continue
-            
-            except TypeError:
                 per_page -= 1
                 continue
             
