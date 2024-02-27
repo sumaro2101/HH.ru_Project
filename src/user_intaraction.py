@@ -3,6 +3,7 @@ from queue import Queue
 from src.api_hh import HhVacancies
 from src.vacancies import Vacancy
 from src.save_file import SaveToJson, SaveToCsv, SaveToText
+from typing import Type, Literal, Union
 
 
 class StopUserProgram(Exception):
@@ -13,12 +14,18 @@ class EmptyResult(Exception):
     
     
 class UserInteraction:
+    """Класс-контроллер для взаимодействия с пользователем
+    """    
     
     @classmethod
-    def validate_int(cls, int_):
+    def validate_int(cls, int_: str) -> bool:
+        """Валидация строки которая является числом
+        """    
+            
         if not int_.isdigit() or int(int_) < 0:
-            print('Введите цисло, цисло должно быть не меньше нуля')
+            print('Введите число, число должно быть не меньше нуля')
             return False
+        
         return True
     
     @classmethod
@@ -27,7 +34,17 @@ class UserInteraction:
         print('Если да, введи любой символ')
         
     @classmethod
-    def _ask_format(self, format, mode, queue):
+    def _ask_format(self, format: str, 
+                    mode: Literal['w', 'a'], 
+                    queue: Type[Queue]) -> None:
+        """Метод-шаблон который в зависимости от полученного числа делает действие
+
+        Args:
+            format (str): Формат сохранения 
+            mode (str): Тип записи
+            queue (Type[Queue]): Очередь с объектами
+        """ 
+               
         match format:
             case '1':
                 SaveToJson(mode=mode).save_to_file(vacance=queue)
@@ -37,10 +54,12 @@ class UserInteraction:
 
             case '3':
                 SaveToCsv(mode=mode).save_to_file(vacance=queue)
-
-            
+  
     @classmethod         
-    def _ask_mode(self, mode):
+    def _ask_mode(self, mode: Literal['1', '2']) -> Literal['w', 'a']:
+        """Выбор типа записи
+        """  
+              
         match mode:
             case '1':
                 return "w"
@@ -48,12 +67,29 @@ class UserInteraction:
                 return 'a'
                 
     @classmethod
-    def save_to_file(cls, name, page, per_page, convert_to_RUB, town):
-        
+    def save_to_file(cls,
+                     name: Union[str, None],
+                     page: Union[int, None],
+                     per_page: Union[int, None],
+                     convert_to_RUB: bool, 
+                     town: Union[str, None]):
+        """Метод-ядро работы программы
+
+        Args:
+            name (Union[str, None]): Професcия
+            page (Union[int, None]): Страница
+            per_page (Union[int, None]): Количество объектов
+            convert_to_RUB (bool): Конвертирование валюты
+            town (Union[str, None]): Выбор города
+        """  
+              
         per_page = int(per_page)
         user_page = int(page)
         
         while True:
+            if per_page == 0:
+                print('К сожалению список вакансий пуст')
+                break
             try:
                 vacancies = HhVacancies(name=name, per_page=per_page, page=page, convert_to_RUB=convert_to_RUB, town=town)
                 
@@ -108,3 +144,4 @@ class UserInteraction:
                 else:
                     return
             break
+        

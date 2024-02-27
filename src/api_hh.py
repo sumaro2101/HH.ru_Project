@@ -172,9 +172,10 @@ class MixinTown(BaseModel, extra='allow'):
         Returns:
             int: ID города
         """  
-              
+           
         if town is not None:
             return EnumTown[town].value
+        
 
 
 class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
@@ -214,7 +215,7 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
         
         value = value.replace('-', '').replace(' ', '').lower().title()
         if value not in [item.name for item in EnumTown]:
-            raise ValueError
+            return None
         
         return value
          

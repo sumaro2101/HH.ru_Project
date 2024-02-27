@@ -30,7 +30,8 @@ class SaveToJson(AbstractSaveFile):
     
     mode: Literal['w', 'a'] = 'w'
   
-    def save_to_file(self, vacance: Type[Queue], path: DirectoryPath ='vacancies.json') -> None:
+    def save_to_file(self, vacance: Type[Queue],
+                     path: DirectoryPath ='vacancies.json') -> None:
         """Сохранeние файла типа JSON
 
         Args:
@@ -57,7 +58,8 @@ class SaveToText(AbstractSaveFile):
     
     mode: Literal['w', 'a'] = 'w'
        
-    def save_to_file(self, vacance: Type[Queue], path: DirectoryPath ='vacancies.txt') -> None:
+    def save_to_file(self, vacance: Type[Queue],
+                     path: DirectoryPath ='vacancies.txt') -> None:
         """Сохранeние файла типа TXT
 
         Args:
@@ -84,7 +86,8 @@ class SaveToCsv(AbstractSaveFile):
     
     mode: Literal['w', 'a'] = 'w'
         
-    def save_to_file(self, vacance: Type[Queue], path: DirectoryPath ='vacancies.csv'):
+    def save_to_file(self, vacance: Type[Queue],
+                     path: DirectoryPath ='vacancies.csv'):
         """Сохранeние файла типа CSV
 
         Args:
