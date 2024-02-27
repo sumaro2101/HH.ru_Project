@@ -45,6 +45,9 @@ class Employer(BaseModel):
    
     
 class Vacancy(AbstractVacancies):
+    """Модель для сериализации данных а так же обработки
+    """    
+    
     model_config = ConfigDict(frozen=True)
     
     name: str
