@@ -1,4 +1,4 @@
-from src.user_intaraction import UserInteraction, StopUserProgram
+from src.utils.user_intaraction import UserInteraction, StopUserProgram
 
 
 def main():

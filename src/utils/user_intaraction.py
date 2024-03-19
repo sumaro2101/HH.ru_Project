@@ -1,9 +1,9 @@
 from queue import Queue
-
-from src.api_hh import HhVacancies
-from src.vacancies import Vacancy
-from src.save_file import SaveToJson, SaveToCsv, SaveToText
 from typing import Type, Literal, Union
+
+from src.hh_vacancies.api_hh import HhVacancies
+from src.hh_vacancies.vacancies import Vacancy
+from src.utils.save_file import SaveToJson, SaveToCsv, SaveToText
 
 
 class StopUserProgram(Exception):

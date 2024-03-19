@@ -1,19 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, computed_field
-from abc import ABC
-from typing import Union, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from typing import Union, List
 
-class AbstractVacancies(BaseModel, ABC):
-    
-    name: str
-    area: Dict
-    professional_roles: List
-    salary: Dict
-    experience: Dict
-    employment: Dict
-    schedule: Dict
-    alternate_url: HttpUrl
-    snippet: Dict
-    employer: Dict
+from src.abstract.abstract_classes import AbstractVacancies
     
 class Area(BaseModel):
     name: Union[str, None]
