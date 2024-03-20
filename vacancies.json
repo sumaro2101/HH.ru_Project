@@ -1,7 +1,7 @@
 {
-  "name": "Python Developer",
+  "name": "Программист-разработчик",
   "area": {
-    "name": "Москва"
+    "name": "Астана"
   },
   "professional_roles": [
     {
@@ -9,75 +9,9 @@
     }
   ],
   "salary": {
-    "from_": 180000,
-    "to": 240000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94811526",
-  "snippet": {
-    "requirement": "Самостоятельно выполнять поставленные задачи. Понимает подходы к проектированию архитектуры API. Понимает принципы работы Django ORM. Знает и владеет Django, Django...",
-    "responsibility": "Развертка и настройка проекта."
-  },
-  "employer": {
-    "name": "kt.team",
-    "alternate_url": "https://hh.ru/employer/1714677"
-  }
-}{
-  "name": "Python Developer",
-  "area": {
-    "name": "Тольятти"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 180000,
-    "to": 240000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94811527",
-  "snippet": {
-    "requirement": "Самостоятельно выполнять поставленные задачи. Понимает подходы к проектированию архитектуры API. Понимает принципы работы Django ORM. Знает и владеет Django, Django...",
-    "responsibility": "Развертка и настройка проекта."
-  },
-  "employer": {
-    "name": "kt.team",
-    "alternate_url": "https://hh.ru/employer/1714677"
-  }
-}{
-  "name": "Backend Python (Middle) Разработчик",
-  "area": {
-    "name": "Москва"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 175000,
-    "to": 250000,
-    "currency": "RUR"
+    "from": 450000,
+    "to": 450000,
+    "currency": "KZT"
   },
   "experience": {
     "name": "От 1 года до 3 лет"
@@ -88,15 +22,84 @@
   "schedule": {
     "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/94523476",
+  "alternate_url": "https://hh.ru/vacancy/94916555",
   "snippet": {
-    "requirement": "Опыт работы с <highlighttext>Python</highlighttext> на уровне Middle (2+ года). 2. Знание основных фреймворков для веб-разработки на <highlighttext>Python</highlighttext>, таких...",
-    "responsibility": null
+    "requirement": "Знание и опыт использования языка программирования, соответствующего задаче (PHP, <highlighttext>Python</highlighttext>, Java) . Знание соответствующих фреймворков и технологий. Опыт в разработке веб...",
+    "responsibility": "конструктор образовательных программ. Языки программирования:"
   },
   "employer": {
-    "name": "Leadshub",
-    "alternate_url": "https://hh.ru/employer/5957024"
-  }
+    "name": "НЕКОММЕРЧЕСКОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО TALAP",
+    "alternate_url": "https://hh.ru/employer/5787462"
+  },
+  "id": 94916555
+}{
+  "name": "Technical Project Manager",
+  "area": {
+    "name": "Москва"
+  },
+  "professional_roles": [
+    {
+      "name": "Руководитель проектов"
+    }
+  ],
+  "salary": {
+    "from": 350000,
+    "to": 470000,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 3 до 6 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Удаленная работа"
+  },
+  "alternate_url": "https://hh.ru/vacancy/94908516",
+  "snippet": {
+    "requirement": "Базовое знание хотя бы одного из языков программирования (например, <highlighttext>Python</highlighttext>, Golang или Java). Опыт работы с распределенными командами и разработчиками...",
+    "responsibility": "Детализация и уточнений требований. Предпроектная оценка работ. Детализация и уточнения ожидаемого результата (образ результата, ожидаемое качество и т.д.). "
+  },
+  "employer": {
+    "name": "БизнесМатика",
+    "alternate_url": "https://hh.ru/employer/4281077"
+  },
+  "id": 94908516
+}{
+  "name": "Data Analyst junior",
+  "area": {
+    "name": "Алматы"
+  },
+  "professional_roles": [
+    {
+      "name": "BI-аналитик, аналитик данных"
+    }
+  ],
+  "salary": {
+    "from": 150000,
+    "to": null,
+    "currency": "KZT"
+  },
+  "experience": {
+    "name": "Нет опыта"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Полный день"
+  },
+  "alternate_url": "https://hh.ru/vacancy/93800296",
+  "snippet": {
+    "requirement": "...datalens, tableau и т.д.. Есть опыт работы с различными СУБД: PostgreSQL, MySQL. Есть понимание SQL. Знание <highlighttext>Python</highlighttext> будет преимуществом.",
+    "responsibility": "Обработке данных. Разработке и выполнению SQL-запросов. Подготовке дашбордов, графиков, необходимых отчетов и таблиц данных. Формированию регулярной отчетности для заказчиков. "
+  },
+  "employer": {
+    "name": "BP Contact",
+    "alternate_url": "https://hh.ru/employer/4643466"
+  },
+  "id": 93800296
 }{
   "name": "Python разработчик",
   "area": {
@@ -108,7 +111,7 @@
     }
   ],
   "salary": {
-    "from_": 130000,
+    "from": 130000,
     "to": null,
     "currency": "RUR"
   },
@@ -129,20 +132,21 @@
   "employer": {
     "name": "Fortech",
     "alternate_url": "https://hh.ru/employer/6120481"
-  }
+  },
+  "id": 94979362
 }{
-  "name": "Аналитик службы безопасности",
+  "name": "Программист-разработчик (стажер)",
   "area": {
     "name": "Москва"
   },
   "professional_roles": [
     {
-      "name": "Специалист по информационной безопасности"
+      "name": "Программист, разработчик"
     }
   ],
   "salary": {
-    "from_": 120000,
-    "to": null,
+    "from": 120000,
+    "to": 120000,
     "currency": "RUR"
   },
   "experience": {
@@ -154,81 +158,16 @@
   "schedule": {
     "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/94543429",
+  "alternate_url": "https://hh.ru/vacancy/94281477",
   "snippet": {
-    "requirement": "...затраты, расходы vs дивиденды итд. Навыки программной обработки информации (MySQL, <highlighttext>Python</highlighttext>) - плюс. Активная жизненная позиция, умение разговаривать с людьми, понятная...",
-    "responsibility": "Компания состоит в реестре аккредитованных IT-компаний Минцифры. Партнерские офисы компании расположены в шести странах ближнего и дальнего зарубежья, география..."
+    "requirement": "Высшее профильное образование. Опыт работы в должности программиста – разработчика от 1-го года. Работа в команде над решением сложных и...",
+    "responsibility": "Разработка нового и сопровождение текущего функционала учетно-аналитических систем (объектов БД и пользовательских интерфейсов). Разработка и сопровождения процедур формирования отчетов. "
   },
   "employer": {
-    "name": "Кадровое агентство BWG",
-    "alternate_url": "https://hh.ru/employer/9472604"
-  }
-}{
-  "name": "Разработчик Python / Django",
-  "area": {
-    "name": "Москва"
+    "name": "ФИНАТЕК",
+    "alternate_url": "https://hh.ru/employer/1794203"
   },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 100000,
-    "to": 150000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94404467",
-  "snippet": {
-    "requirement": "Отличное знание <highlighttext>Python</highlighttext>, Django, Celery, PostgreSQL, Redis, ClickHouse (желателен опыт работы от 2-х лет). Опыт написания unit-тестов. ",
-    "responsibility": "Участие в разработке проектов. Разработка backend (REST API ) для сервисов, как в рамках новых проектов, так и для уже существующих. "
-  },
-  "employer": {
-    "name": "AlfaBit",
-    "alternate_url": "https://hh.ru/employer/4767781"
-  }
-}{
-  "name": "Backend-программист",
-  "area": {
-    "name": "Якутск"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 85000,
-    "to": null,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Полный день"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94644939",
-  "snippet": {
-    "requirement": "Опыт создания RestAPI. Опыт работы с Git. Знание <highlighttext>Python</highlighttext> (Django, FastAPI). Опыт разработки микросервисов. Опыт использования технологий контейнеризации Docker, Kubernetes. ",
-    "responsibility": "Создавать и развивать RESTful вэб-сервисы. Писать качественный и тестируемый код, проходить CodeReview. Проектировать структуру БД. Работа с существующими системами..."
-  },
-  "employer": {
-    "name": "Государственное бюджетное учреждение Республики Саха (Якутия) Республиканский центр инфокоммуникационных технологий",
-    "alternate_url": "https://hh.ru/employer/5270587"
-  }
+  "id": 94281477
 }{
   "name": "Python-разработчик",
   "area": {
@@ -240,41 +179,8 @@
     }
   ],
   "salary": {
-    "from_": 80000,
+    "from": 120000,
     "to": 150000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Полный день"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94517119",
-  "snippet": {
-    "requirement": "1-3 года production-опыта c <highlighttext>Python</highlighttext> 3. Опыт работы с LLM и дообучение GPT-like моделей будет преимуществом. ",
-    "responsibility": "Разрабатывать продукты на базе GPT API и других LLM. Проектировать языковые цепочки на базе LangChain и LLM/GPT. "
-  },
-  "employer": {
-    "name": "Университет искусственного интеллекта",
-    "alternate_url": "https://hh.ru/employer/3754394"
-  }
-}{
-  "name": "Разработчик Python",
-  "area": {
-    "name": "Тюмень"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 70000,
-    "to": 90000,
     "currency": "RUR"
   },
   "experience": {
@@ -286,27 +192,198 @@
   "schedule": {
     "name": "Удаленная работа"
   },
-  "alternate_url": "https://hh.ru/vacancy/93746161",
+  "alternate_url": "https://hh.ru/vacancy/94623534",
   "snippet": {
-    "requirement": "Будет плюсом: Опыт работы с транзакциями в MongoDB. Понимание принципов блокировок ресурсов при использовании celery.  3. Если твой текущий уровень...",
-    "responsibility": "В основном ты будешь заниматься разработкой бекендов находящихся под постоянной нагрузкой, принимать участие в обсуждении архитектурных решений."
+    "requirement": "Ответственное написание документации к коду для облегчения понимания и совместной работы. Глубокое знание <highlighttext>Python</highlighttext> (* + библиотек по работе с большими...",
+    "responsibility": "Освоение и развитие существующего и написание нового программного обеспечения на основе <highlighttext>Python</highlighttext>. Взаимодействие с API маркетплейсов и CRM системы для..."
   },
   "employer": {
-    "name": "RLT (ООО Надежные Лояльные Технологии)",
-    "alternate_url": "https://hh.ru/employer/4732028"
-  }
+    "name": "РусЭкспресс",
+    "alternate_url": "https://hh.ru/employer/1875694"
+  },
+  "id": 94623534
 }{
-  "name": "Project manager Junior",
+  "name": "Middle Python Developer",
+  "area": {
+    "name": "Санкт-Петербург"
+  },
+  "professional_roles": [
+    {
+      "name": "Программист, разработчик"
+    }
+  ],
+  "salary": {
+    "from": 100000,
+    "to": 120000,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 1 года до 3 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Полный день"
+  },
+  "alternate_url": "https://hh.ru/vacancy/93786395",
+  "snippet": {
+    "requirement": "От 2-х лет коммерческого опыта, знаешь что такое SOLID, DRY, KISS, интересуешься паттернами проектирования. Знаешь <highlighttext>Python</highlighttext> 3.8. ",
+    "responsibility": "Участвовать во всех этапах разработки в составе scrum-команды: собирать и анализировать требования, декомпозировать и оценивать задачи, писать код, релизить..."
+  },
+  "employer": {
+    "name": "HEADS and HANDS",
+    "alternate_url": "https://hh.ru/employer/1504670"
+  },
+  "id": 93786395
+}{
+  "name": "QA engineer (manual)",
   "area": {
     "name": "Москва"
   },
   "professional_roles": [
     {
-      "name": "Руководитель проектов"
+      "name": "Тестировщик"
     }
   ],
   "salary": {
-    "from_": 70000,
+    "from": 100000,
+    "to": 120000,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 1 года до 3 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Полный день"
+  },
+  "alternate_url": "https://hh.ru/vacancy/94119723",
+  "snippet": {
+    "requirement": "Ведение тестовой документации и написание тест-кейсов. Более 2 лет опыта ручного тестирования. Понимание жизненного цикла программного обеспечения. ",
+    "responsibility": "Тестирование клиент-серверных приложений. Анализ продуктовых требований, сверка продуктовых требований с результатом. Поддержка тестовых сред и тестовой инфраструктуры. "
+  },
+  "employer": {
+    "name": "АТМОсфера",
+    "alternate_url": "https://hh.ru/employer/5347571"
+  },
+  "id": 94119723
+}{
+  "name": "Младший Web-разработчик",
+  "area": {
+    "name": "Москва"
+  },
+  "professional_roles": [
+    {
+      "name": "Программист, разработчик"
+    }
+  ],
+  "salary": {
+    "from": 100000,
+    "to": null,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 1 года до 3 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Полный день"
+  },
+  "alternate_url": "https://hh.ru/vacancy/94660474",
+  "snippet": {
+    "requirement": "Знание <highlighttext>Python</highlighttext>, Django, умение работать с реляционными базами данных (мы используем MsSQL). «Умение в линукс» на уровне конфигурации apache, nginx...",
+    "responsibility": "Разработка, развитие и поддержка наших Web-проектов. Правки на сайтах компании. Наши копирайтеры справляются с большинством задач, но, если им..."
+  },
+  "employer": {
+    "name": "НОВОТЕСТ, независимая экспертная компания",
+    "alternate_url": "https://hh.ru/employer/539679"
+  },
+  "id": 94660474
+}{
+  "name": "Веб-разработчик",
+  "area": {
+    "name": "Красноярск"
+  },
+  "professional_roles": [
+    {
+      "name": "Программист, разработчик"
+    }
+  ],
+  "salary": {
+    "from": 100000,
+    "to": null,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 1 года до 3 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Полный день"
+  },
+  "alternate_url": "https://hh.ru/vacancy/95021776",
+  "snippet": {
+    "requirement": "Уверенное знание JavaScript. Уверенное знание php либо phyton. Уверенное знание БД PostgreSQL, MongoDB. Желание развиваться в своей сфере.",
+    "responsibility": "Разработка веб приложений на базе функциональных требований. Сопровождение текущих проектов компании. Гибкий, согласовывается индивидуально с каждым сотрудником."
+  },
+  "employer": {
+    "name": "ТИРР плюс",
+    "alternate_url": "https://hh.ru/employer/4352524"
+  },
+  "id": 95021776
+}{
+  "name": "Программист-разработчик",
+  "area": {
+    "name": "Москва"
+  },
+  "professional_roles": [
+    {
+      "name": "Программист, разработчик"
+    }
+  ],
+  "salary": {
+    "from": 70000,
+    "to": null,
+    "currency": "RUR"
+  },
+  "experience": {
+    "name": "От 1 года до 3 лет"
+  },
+  "employment": {
+    "name": "Полная занятость"
+  },
+  "schedule": {
+    "name": "Удаленная работа"
+  },
+  "alternate_url": "https://hh.ru/vacancy/94850677",
+  "snippet": {
+    "requirement": "Опыт работы с технологиями: <highlighttext>Python</highlighttext>, Docker, Aiogram 3.x, Fluent, Sqlalchemy, Asyncio, ClickHouse, PostgreSQL, Redis, Fastapi, k18n. ",
+    "responsibility": "Создание сценариев диалогов для ботов и голосовых ассистентов, включая формирование реплик бота, последовательностей вопросов и логики выбора уточняющих вопросов. "
+  },
+  "employer": {
+    "name": "Смарт Студио",
+    "alternate_url": "https://hh.ru/employer/10854751"
+  },
+  "id": 94850677
+}{
+  "name": "Junior Back-end разработчик (Python, PostgreSQL, FastAPI)",
+  "area": {
+    "name": "Ханты-Мансийск"
+  },
+  "professional_roles": [
+    {
+      "name": "Программист, разработчик"
+    }
+  ],
+  "salary": {
+    "from": 60000,
     "to": null,
     "currency": "RUR"
   },
@@ -319,114 +396,16 @@
   "schedule": {
     "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/92816235",
+  "alternate_url": "https://hh.ru/vacancy/94601280",
   "snippet": {
-    "requirement": "Опыт работы с базами данных, инструментами анализа данных (например, SQL, <highlighttext>Python</highlighttext>, R, Power BI) и создание отчетов на основе данных.",
-    "responsibility": "Организация и поддержание системы учета задач и проектов. Регулярный мониторинг статуса задач и проектов. - Следование за сроками выполнения и напоминание..."
+    "requirement": "Опыт работы с <highlighttext>Python</highlighttext>, PostgreSQL и FastAPI и его аналогами или опыт в разработке ботов на Aiogram не менее 1...",
+    "responsibility": "Разработка и поддержка серверной части веб-приложений с использованием <highlighttext>Python</highlighttext>, PostgreSQL и FastAPI. Проектирование и разработка новых систем, анализ требований. "
   },
   "employer": {
-    "name": "CRTEX",
-    "alternate_url": "https://hh.ru/employer/9244855"
-  }
-}{
-  "name": "Middle Backend Разработчик",
-  "area": {
-    "name": "Бишкек"
+    "name": "АУ Югорский НИИ информационных технологий",
+    "alternate_url": "https://hh.ru/employer/2405733"
   },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 70000,
-    "to": 110000,
-    "currency": "KGS"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Полный день"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94680741",
-  "snippet": {
-    "requirement": "Работать с актуальными фреймворками и нейронными сетями (PyTorch, TensorFlow, YOLO, Detectron2). Работать с библиотеками <highlighttext>Python</highlighttext> для машинного обучения (numpy...",
-    "responsibility": "Участвовать в разработке и проектировании будущего веб-сервиса. Писать документацию сервиса. Разрабатывать CI/CD-пайплайны и автоматизацию."
-  },
-  "employer": {
-    "name": "ОсОО Цифровые инновации",
-    "alternate_url": "https://hh.ru/employer/10016684"
-  }
-}{
-  "name": "Python-разработчик (инженер-программист)",
-  "area": {
-    "name": "Москва"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 70000,
-    "to": 100000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94755858",
-  "snippet": {
-    "requirement": "Применение методов отладки программного кода. Применение инструментов кроссплатформенного управления зависимостями <highlighttext>Python</highlighttext> (poetry). Знание нормативно-технических документов (стандарты и регламенты), определяющих...",
-    "responsibility": "Backend-разработка многофункциональных информационных платформ и различных смежных проектов и приложений. Проектирование и разработка баз данных для разрабатываемых информационных платформ..."
-  },
-  "employer": {
-    "name": "ФГКУ Главный Центр Информационных Технологий Войск Национальной Гвардии Российской Федерации",
-    "alternate_url": "https://hh.ru/employer/10157719"
-  }
-}{
-  "name": "QA инженер",
-  "area": {
-    "name": "Москва"
-  },
-  "professional_roles": [
-    {
-      "name": "Тестировщик"
-    }
-  ],
-  "salary": {
-    "from_": 70000,
-    "to": 110000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94870294",
-  "snippet": {
-    "requirement": "Понимание клиент-сервисной архитектуры. Приветствуется опыт автоматизации <highlighttext>python</highlighttext> ,навыки работы с библиотеками pytest, requests, selenium ,webdriver ( учебный опыт по автоматизации...",
-    "responsibility": "Ручное тестирование web-приложений компании. Тестирование REST API(Postman). Составлении простых запросов SQL."
-  },
-  "employer": {
-    "name": "Страховые Партнеры",
-    "alternate_url": "https://hh.ru/employer/2794926"
-  }
+  "id": 94601280
 }{
   "name": "Аналитик данных",
   "area": {
@@ -438,7 +417,7 @@
     }
   ],
   "salary": {
-    "from_": 60000,
+    "from": 60000,
     "to": null,
     "currency": "RUR"
   },
@@ -459,40 +438,8 @@
   "employer": {
     "name": "MARSHALL",
     "alternate_url": "https://hh.ru/employer/536301"
-  }
-}{
-  "name": "Junior-разработчик",
-  "area": {
-    "name": "Екатеринбург"
   },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 60000,
-    "to": null,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "Нет опыта"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94403212",
-  "snippet": {
-    "requirement": "Ты знаешь инструменты для обработки и анализа данных, такие как Microsoft Excel, SQL, <highlighttext>Python</highlighttext> или R; умеешь работать с системами...",
-    "responsibility": "Demand Planning – анализ и прогнозирование будущего спроса на товары и услуги. Supply Chain Planning – стратегический подход к управлению этапами создания..."
-  },
-  "employer": {
-    "name": "Планетра",
-    "alternate_url": "https://hh.ru/employer/9734048"
-  }
+  "id": 94213932
 }{
   "name": "Аналитик",
   "area": {
@@ -504,7 +451,7 @@
     }
   ],
   "salary": {
-    "from_": 60000,
+    "from": 60000,
     "to": 100000,
     "currency": "RUR"
   },
@@ -525,11 +472,12 @@
   "employer": {
     "name": "КДМ",
     "alternate_url": "https://hh.ru/employer/60973"
-  }
+  },
+  "id": 94851754
 }{
   "name": "Junior-разработчик",
   "area": {
-    "name": "Москва"
+    "name": "Екатеринбург"
   },
   "professional_roles": [
     {
@@ -537,7 +485,7 @@
     }
   ],
   "salary": {
-    "from_": 60000,
+    "from": 60000,
     "to": null,
     "currency": "RUR"
   },
@@ -548,9 +496,9 @@
     "name": "Полная занятость"
   },
   "schedule": {
-    "name": "Полный день"
+    "name": "Удаленная работа"
   },
-  "alternate_url": "https://hh.ru/vacancy/94114941",
+  "alternate_url": "https://hh.ru/vacancy/94403212",
   "snippet": {
     "requirement": "Ты знаешь инструменты для обработки и анализа данных, такие как Microsoft Excel, SQL, <highlighttext>Python</highlighttext> или R; умеешь работать с системами...",
     "responsibility": "Demand Planning – анализ и прогнозирование будущего спроса на товары и услуги. Supply Chain Planning – стратегический подход к управлению этапами создания..."
@@ -558,11 +506,12 @@
   "employer": {
     "name": "Планетра",
     "alternate_url": "https://hh.ru/employer/9734048"
-  }
+  },
+  "id": 94403212
 }{
-  "name": "Разработчик Python",
+  "name": "Junior Frontend разработчик",
   "area": {
-    "name": "Уфа"
+    "name": "Самара"
   },
   "professional_roles": [
     {
@@ -570,230 +519,67 @@
     }
   ],
   "salary": {
-    "from_": 60000,
-    "to": null,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94737408",
-  "snippet": {
-    "requirement": "Знание <highlighttext>Python</highlighttext>. Опыт работы с git. Опыт написания модульных (unit) тестов. Понимание принципов ОПП. Опыт использования: Django, Aiohttp, Asyncio, FastAPI...",
-    "responsibility": "Участие в новом startup проекте по разработке SaaS системы автоматизации управления. Предприятием для промышленности. Задачи по разработке нагруженных систем. "
-  },
-  "employer": {
-    "name": "Технопром",
-    "alternate_url": "https://hh.ru/employer/4381956"
-  }
-}{
-  "name": "Go Developer Junior/Middle",
-  "area": {
-    "name": "Санкт-Петербург"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 50000,
-    "to": 200000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94823405",
-  "snippet": {
-    "requirement": "Умение и желание искать решения для «технических вызовов». Опыт c php и/или <highlighttext>python</highlighttext>. Опыт разработки через тестирование. ",
-    "responsibility": "Разработка бизнес-логики, внутренних алгоритмов, обработки больших объемов данных, оптимизации производительности. Поддержка существующих решений. Участвовать в планировании задач и их..."
-  },
-  "employer": {
-    "name": "i-Advert",
-    "alternate_url": "https://hh.ru/employer/3090925"
-  }
-}{
-  "name": "Программист в зону поддержки / верстальщик",
-  "area": {
-    "name": "Санкт-Петербург"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 46000,
-    "to": null,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94540896",
-  "snippet": {
-    "requirement": "Плюсом будет: Опыт работы с PHP (Laravel, PHP 7+). Опыт работы с <highlighttext>Python</highlighttext> (фреймворк Django). Опыт работы в CMS...",
-    "responsibility": "На втором этапе ты начнешь вносить изменения в действующие продукты, доверстка отдельных элементов или блоков (здесь тебе пригодится внимательность, соответствие..."
-  },
-  "employer": {
-    "name": "Цифра",
-    "alternate_url": "https://hh.ru/employer/10819317"
-  }
-}{
-  "name": "Python Developer",
-  "area": {
-    "name": "Краснодар"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 45000,
-    "to": null,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Полный день"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94623640",
-  "snippet": {
-    "requirement": "Имеешь глубокие знания <highlighttext>Python</highlighttext>. Знаком с Django и Django ORM. Обладаешь начальными знаниями реляционных и/или NoSQL баз данных (PostgreSQL...",
-    "responsibility": "Участвовать в разработке продукта на всех этапах, применяя свои знания <highlighttext>Python</highlighttext>. Строить качественный код, принимая участие в Code Review под..."
-  },
-  "employer": {
-    "name": "ФОДЖИН",
-    "alternate_url": "https://hh.ru/employer/6164545"
-  }
-}{
-  "name": "Junior Разработчик на SAS RTDM (стажер)",
-  "area": {
-    "name": "Казань"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 40000,
-    "to": null,
+    "from": 30000,
+    "to": 50000,
     "currency": "RUR"
   },
   "experience": {
     "name": "Нет опыта"
   },
   "employment": {
-    "name": "Стажировка"
+    "name": "Полная занятость"
   },
   "schedule": {
-    "name": "Гибкий график"
+    "name": "Удаленная работа"
   },
-  "alternate_url": "https://hh.ru/vacancy/94048664",
+  "alternate_url": "https://hh.ru/vacancy/94228875",
   "snippet": {
-    "requirement": "Навыки программирования на любом языке среднего уровня (Java, <highlighttext>Python</highlighttext>, C++). Понимание git и git-flow (Pull, Push, PR, Merge, ведение...",
-    "responsibility": "Анализ, разработка и тестирование изменений стратегии принятия кредитных решений SAS RTDM. Оптимизация технической реализации стратегий принятия кредитных решений. "
+    "requirement": "Имеете опыт работы с Node.js. Знаете английский на уровне чтения технической документации. Уверенно владеете React + (Redux, Hooks, etc.). ",
+    "responsibility": "Написать приложение из 3х страниц: Страница авторизации в цветах и стиле основной страницы. В форме авторизации email и пароль. "
   },
   "employer": {
-    "name": "Ак Барс Банк",
-    "alternate_url": "https://hh.ru/employer/47939"
-  }
+    "name": "MacBuildServer",
+    "alternate_url": "https://hh.ru/employer/4008572"
+  },
+  "id": 94228875
 }{
-  "name": "Trainee/Intern/Junior Python backend developer",
-  "area": {
-    "name": "Санкт-Петербург"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 10000,
-    "to": 60000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "Нет опыта"
-  },
-  "employment": {
-    "name": "Стажировка"
-  },
-  "schedule": {
-    "name": "Гибкий график"
-  },
-  "alternate_url": "https://hh.ru/vacancy/93725652",
-  "snippet": {
-    "requirement": "Для этого мы ищем начинающего, сообразительного, шустрого, амбициозного интерна-джуна питониста. Опыт в коммерческой разработке не требуется – важнее навык быстро...",
-    "responsibility": "Писать тесты. Писать фичи. Писать фронт. Диплоить проекты. И всем даём ответ ;)."
-  },
-  "employer": {
-    "name": "Рекруто",
-    "alternate_url": "https://hh.ru/employer/4888751"
-  }
-}{
-  "name": "Фронтенд-инженер (Bitcoin)",
+  "name": "Аналитик данных/Data analyst (фармацевтическое направление)",
   "area": {
     "name": "Москва"
   },
   "professional_roles": [
     {
-      "name": "Программист, разработчик"
+      "name": "Аналитик"
     }
   ],
   "salary": {
-    "from_": 1000,
-    "to": 3000,
-    "currency": "USD"
+    "from": 0,
+    "to": 140000,
+    "currency": "RUR"
   },
   "experience": {
     "name": "От 1 года до 3 лет"
   },
   "employment": {
-    "name": "Частичная занятость"
+    "name": "Полная занятость"
   },
   "schedule": {
-    "name": "Удаленная работа"
+    "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/94881039",
+  "alternate_url": "https://hh.ru/vacancy/93491826",
   "snippet": {
-    "requirement": "Будет плюсом: Знание JS, HTML, CSS, Sass. Бекенд опыт (<highlighttext>Python</highlighttext>, JS). Опыт работы с базами данных. Опыт тестирования (jest, cypress...",
-    "responsibility": "Оплата в валюте."
+    "requirement": "Знаете принципы экономико-математических методов прогнозирования, а также методов статического анализа. Имеете опыт работы с <highlighttext>Python</highlighttext>. Способность организовать процесс, взаимодействовать...",
+    "responsibility": "Систематизация, обработка и загрузка данных в систему, автоматизация и оптимизация загрузки. Создание витрин данных для унификации отчетности, создание самой отчетности..."
   },
   "employer": {
-    "name": "Grabber",
-    "alternate_url": "https://hh.ru/employer/6041280"
-  }
+    "name": "KONNEKTU",
+    "alternate_url": "https://hh.ru/employer/2700550"
+  },
+  "id": 93491826
 }{
-  "name": "Junior / Middle full-stack .NET/JS Core Software Engineer",
+  "name": "Программист Python",
   "area": {
-    "name": "Минск"
+    "name": "Санкт-Петербург"
   },
   "professional_roles": [
     {
@@ -801,12 +587,12 @@
     }
   ],
   "salary": {
-    "from_": 400,
-    "to": 2000,
-    "currency": "USD"
+    "from": 0,
+    "to": 120000,
+    "currency": "RUR"
   },
   "experience": {
-    "name": "Нет опыта"
+    "name": "От 1 года до 3 лет"
   },
   "employment": {
     "name": "Полная занятость"
@@ -814,81 +600,50 @@
   "schedule": {
     "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/94985965",
+  "alternate_url": "https://hh.ru/vacancy/94754454",
   "snippet": {
-    "requirement": "Write code with one of the following langs: C# + .NET / Java / Go / F# / <highlighttext>Python</highlighttext> / JS with or without Node.js...",
-    "responsibility": "We have a clear and transparent promotional policy designed to keep you motivated on the path to mastery. "
+    "requirement": "Опыт программирования на <highlighttext>Python</highlighttext> и знание фреймворка FastAPI. Понимание принципов асинхронного программирования и опыт работы с асинхронным кодом. ",
+    "responsibility": "Разработка архитектуры для мобильного iOS приложения. Разработка и поддержка функциональных блоков и API (Понимание HTTP - протоколов)."
   },
   "employer": {
-    "name": "Центория Софт",
-    "alternate_url": "https://hh.ru/employer/2015058"
-  }
+    "name": "Aezakmi Group",
+    "alternate_url": "https://hh.ru/employer/10567988"
+  },
+  "id": 94754454
 }{
-  "name": "Администратор Telegram канала / Маркетолог",
-  "area": {
-    "name": "Минск"
-  },
-  "professional_roles": [
-    {
-      "name": "Администратор"
-    }
-  ],
-  "salary": {
-    "from_": 300,
-    "to": null,
-    "currency": "USD"
-  },
-  "experience": {
-    "name": "Нет опыта"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Полный день"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94868100",
-  "snippet": {
-    "requirement": "Работа с нейросетями - ChatGPT твой лучший друг ( при необходимости ты даже можешь написать бота на <highlighttext>Python</highlighttext>). Очень внимательный и ответственный...",
-    "responsibility": "Закупка трафика и разработка контент-стратегии для каналов. Писать креативные рекламные посты и анализировать их эффективность. Поиск каналов для рекламы..."
-  },
-  "employer": {
-    "name": "СтримЭнерджи",
-    "alternate_url": "https://hh.ru/employer/3968147"
-  }
-}{
-  "name": "Стажер в информационную безопасность",
+  "name": "Аналитик",
   "area": {
     "name": "Москва"
   },
   "professional_roles": [
     {
-      "name": "Специалист по информационной безопасности"
+      "name": "BI-аналитик, аналитик данных"
     }
   ],
   "salary": {
-    "from_": 0,
-    "to": 40000,
+    "from": 0,
+    "to": 420000,
     "currency": "RUR"
   },
   "experience": {
-    "name": "Нет опыта"
+    "name": "От 3 до 6 лет"
   },
   "employment": {
-    "name": "Стажировка"
+    "name": "Полная занятость"
   },
   "schedule": {
-    "name": "Гибкий график"
+    "name": "Полный день"
   },
-  "alternate_url": "https://hh.ru/vacancy/94932137",
+  "alternate_url": "https://hh.ru/vacancy/94608590",
   "snippet": {
-    "requirement": "Системное администрирования (Linux и Windows). Работы с различными СЗИ. Навык работы со скриптами (<highlighttext>Python</highlighttext>, Bash, Powershell). Навык анализа логов ОС...",
-    "responsibility": "Обработка инцидентов информационной безопасности (включая работу с SIEM, мониторинг инцидентов, реагирование на них, фильтрацию ложно-положительных инцидентов, формирование аналитических справок..."
+    "requirement": "Какой опыт нам важен: Опыт работы с инструментами BI: Tableau, MS Power BI. Опыт разработки многофункциональных информационных панелей с использованием...",
+    "responsibility": "Премии за привлечение новых сотрудников и новых клиентов."
   },
   "employer": {
-    "name": "МГТС",
-    "alternate_url": "https://hh.ru/employer/17222"
-  }
+    "name": "evrone.ru",
+    "alternate_url": "https://hh.ru/employer/598471"
+  },
+  "id": 94608590
 }{
   "name": "Frontend-разработчик web-приложений",
   "area": {
@@ -900,7 +655,7 @@
     }
   ],
   "salary": {
-    "from_": 0,
+    "from": 0,
     "to": 80000,
     "currency": "RUR"
   },
@@ -921,71 +676,6 @@
   "employer": {
     "name": "Российские космические системы",
     "alternate_url": "https://hh.ru/employer/901158"
-  }
-}{
-  "name": "Junior React-разработчик (RPA) (Самара)",
-  "area": {
-    "name": "Самара"
   },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 0,
-    "to": 50000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "Нет опыта"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/94589732",
-  "snippet": {
-    "requirement": "...свои и библиотечные компоненты с помощью SCSS/StyledComponents. Умение работать с DevTools. Знание git и gitflow. Знание SQL. Знание <highlighttext>Python</highlighttext>.",
-    "responsibility": "Разработка и настройка ботов для автоматизации повседневных задач. Участие в проектировании и оптимизации бизнес-процессов с применением RPA. "
-  },
-  "employer": {
-    "name": "СимбирСофт",
-    "alternate_url": "https://hh.ru/employer/668019"
-  }
-}{
-  "name": "Junior Python Backend Developer",
-  "area": {
-    "name": "Санкт-Петербург"
-  },
-  "professional_roles": [
-    {
-      "name": "Программист, разработчик"
-    }
-  ],
-  "salary": {
-    "from_": 0,
-    "to": 80000,
-    "currency": "RUR"
-  },
-  "experience": {
-    "name": "От 1 года до 3 лет"
-  },
-  "employment": {
-    "name": "Полная занятость"
-  },
-  "schedule": {
-    "name": "Удаленная работа"
-  },
-  "alternate_url": "https://hh.ru/vacancy/92471522",
-  "snippet": {
-    "requirement": "Уверенное знание <highlighttext>python</highlighttext>. Уверенное знание django и DRF. Опыт работы с git. Опыт работы с PostgreSQL и умение писать SQL...",
-    "responsibility": "Поддерживать и дополнять функционал CRM."
-  },
-  "employer": {
-    "name": "АпТрейдер (UpTrader)",
-    "alternate_url": "https://hh.ru/employer/2365329"
-  }
+  "id": 94964634
 }

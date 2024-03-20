@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, abstractclassmethod
 from pydantic import BaseModel, HttpUrl
 from typing import Dict, List
 
@@ -46,3 +46,27 @@ class AbstractSaveFile(BaseModel, ABC):
     @abstractmethod
     def delete_of_file(self, path):
         pass
+    
+    
+class AbstractDb(BaseModel, ABC):
+    
+    @abstractclassmethod
+    def get_companies_and_vacancies_count(cls, base_name: str):
+        pass
+    
+    @abstractclassmethod
+    def get_all_vacancies(cls, base_name: str):
+        pass
+    
+    @abstractclassmethod
+    def get_avg_salary(cls, base_name: str):
+        pass
+    
+    @abstractclassmethod
+    def get_vacancies_with_higher_salary(cls, base_name: str):
+        pass
+    
+    @abstractclassmethod
+    def get_vacancies_with_keyword(cls, base_name: str):
+        pass
+    

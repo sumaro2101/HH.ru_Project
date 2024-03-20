@@ -55,11 +55,10 @@ class HhEmpoloyee(MixinTown, AbstractApi):
         }
         
         return params
-    
-a = HhEmpoloyee(name='На_Полке', town=None, per_page=20, page=0)
-for i in a.response['items']:
-    print(i, sep='\n\n')
 
+
+a = HhEmpoloyee(name='Bell Integrator', page=0, per_page=10)
+print(a.response['items'])
 company = ['kt.team', 'Bell Integrator', 'НИИ Вектор', 'Компэл', 'FINAMP', 'Лаборатория Наносемантика', 'Тензор', 'Соломон', 'the_covert', 'На_Полке']
 # "vacancy_search_fields": [
 # {

@@ -38,6 +38,7 @@ class Vacancy(AbstractVacancies):
     
     model_config = ConfigDict(frozen=True)
     
+    id_: int = Field(alias='id')
     name: str
     area: Area 
     professional_roles: List[ProfessionalRoles]
