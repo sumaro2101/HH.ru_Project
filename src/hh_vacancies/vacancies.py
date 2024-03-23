@@ -29,7 +29,8 @@ class Snippet(BaseModel):
     
 class Employer(BaseModel):
     name : Union[str, None]
-    alternate_url: Union[HttpUrl, None]
+    alternate_url: Union[str, None]
+    id_: int = Field(alias='id')
    
     
 class Vacancy(AbstractVacancies):
@@ -46,6 +47,6 @@ class Vacancy(AbstractVacancies):
     experience: Experience
     employment: Employment
     schedule: Schedule
-    alternate_url: HttpUrl
+    alternate_url: str
     snippet: Snippet
     employer: Employer

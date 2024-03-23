@@ -24,9 +24,19 @@ class AbstractVacancies(BaseModel, ABC):
     experience: Dict
     employment: Dict
     schedule: Dict
-    alternate_url: HttpUrl
+    alternate_url: str
     snippet: Dict
     employer: Dict
+    
+
+class AbstractEmployeer(BaseModel, ABC):
+    
+    id_company: int
+    company_name: str
+    url_api: str
+    url_site: str
+    vacancies_url: str
+    open_vacancies: int
     
     
 class AbstractSaveFile(BaseModel, ABC):
@@ -51,22 +61,22 @@ class AbstractSaveFile(BaseModel, ABC):
 class AbstractDb(BaseModel, ABC):
     
     @abstractclassmethod
-    def get_companies_and_vacancies_count(cls, base_name: str):
+    def get_companies_and_vacancies_count(cls, curr):
         pass
     
     @abstractclassmethod
-    def get_all_vacancies(cls, base_name: str):
+    def get_all_vacancies(cls, curr):
         pass
     
     @abstractclassmethod
-    def get_avg_salary(cls, base_name: str):
+    def get_avg_salary(cls, curr):
         pass
     
     @abstractclassmethod
-    def get_vacancies_with_higher_salary(cls, base_name: str):
+    def get_vacancies_with_higher_salary(cls, curr):
         pass
     
     @abstractclassmethod
-    def get_vacancies_with_keyword(cls, base_name: str):
+    def get_vacancies_with_keyword(cls, curr):
         pass
     

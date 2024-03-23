@@ -18,9 +18,10 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
     
     def __init_subclass__(cls, **kwargs: ConfigDict):
         return super().__init_subclass__(**kwargs)
-    name: Union[str, None] = Field(max_length=20)
+    name: Union[str, None] = Field(max_length=20, default=None)
     per_page: Union[int, None] = Field(ge=0, default=10)
     page: Union[int, None] = Field(ge=0, default=0)
+    employer_id: Union[int, List[int], None] = None
 
     def model_post_init(self, __context: Any) -> None:
         """Метод пост-инициализации, меняет состояние выходящего запроса
@@ -83,6 +84,7 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
               
         params = {
             'text': self.name,
+            'employer_id': self.employer_id,
             'per_page': self.per_page,
             'page': self.page,
             'only_with_salary': True,

@@ -1,43 +1,42 @@
-import requests
 from pydantic import ConfigDict, HttpUrl, Field
-from typing import Any, Union, ClassVar, Dict, List
+from typing import Any, Union, ClassVar, Dict, List, Type
 
-from src.mixins.mixins import MixinTown
+from queue import Queue
+from src.utils.correct_tuple import CorrectValues
+import httpx
+import asyncio
 from src.abstract.abstract_classes import AbstractApi
+from src.hh_employes.employeer import Employeers
+from src.hh_vacancies.api_hh import HhVacancies
+from src.hh_vacancies.vacancies import Vacancy
 
-class HhEmpoloyee(MixinTown, AbstractApi):
+
+class HhEmpoloyee(AbstractApi):
     
     model_config = ConfigDict(frozen=True)
     
     __url: ClassVar[HttpUrl] = 'https://api.hh.ru/employers'
     _response: ClassVar[Union[dict, None]] = None
     
-    def __init_subclass__(cls, **kwargs: ConfigDict):
-        return super().__init_subclass__(**kwargs)
     name: Union[str, None] = Field(max_length=30)
     per_page: Union[int, None] = Field(ge=0, default=10)
     page: Union[int, None] = Field(ge=0, default=0)
+    session: Any
     
-    
-    def model_post_init(self, __context: Any) -> None:
-        self._build_response()
-        
-        
+     
     @property
-    def response(self) -> Dict:
+    async def response(self) -> Dict:
         """Возращает готовый и обработанный запрос
-        """    
-            
+        """  
+        await self._build_response(self.session)  
         return self._response
     
     
-    def _build_response(self) -> List[Dict]:
+    async def _build_response(self, session) -> List[Dict]:
         """Метод отправки запроса
-        """ 
-               
-        request_api = requests.request('GET', self.__url, params=self._make_params())
-        
-        HhEmpoloyee._response = request_api.json()
+        """
+        result = await session.get(url=self.__url, params=self._make_params())
+        HhEmpoloyee._response = result.json()
     
     
     def _make_params(self):
@@ -49,28 +48,8 @@ class HhEmpoloyee(MixinTown, AbstractApi):
             'per_page': self.per_page,
             'page': self.page,
             'only_with_vacancies': True,
-            'area': self.make_id_of_town(self.town),
             'sort_by': 'by_vacancies_open'
             
         }
         
         return params
-
-
-a = HhEmpoloyee(name='Bell Integrator', page=0, per_page=10)
-print(a.response['items'])
-company = ['kt.team', 'Bell Integrator', 'НИИ Вектор', 'Компэл', 'FINAMP', 'Лаборатория Наносемантика', 'Тензор', 'Соломон', 'the_covert', 'На_Полке']
-# "vacancy_search_fields": [
-# {
-# "id": "name",
-# "name": "в названии вакансии"
-# },
-# {
-# "id": "company_name",
-# "name": "в названии компании"
-# },
-# {
-# "id": "description",
-# "name": "в описании вакансии"
-# }
-# ],

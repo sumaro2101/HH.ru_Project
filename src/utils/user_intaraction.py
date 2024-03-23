@@ -1,11 +1,20 @@
 from queue import Queue
+import psycopg2
+from psycopg2.errors import Error
+import httpx
+import asyncio
 from typing import Type, Literal, Union
 
 from src.hh_vacancies.api_hh import HhVacancies
 from src.hh_vacancies.vacancies import Vacancy
+from src.hh_employes.api_employee_hh import HhEmpoloyee
+from src.hh_employes.employeer import Employeers
 from src.utils.save_file import SaveToJson, SaveToCsv, SaveToText
+from src.database.DBSetup import DbSetup
+from src.database.DBManager import DbManager
+from src.utils.correct_tuple import CorrectValues
 
-
+COMPANIES = ['kt.team', 'Bell Integrator', 'НИИ Вектор', 'Компэл', 'FINAMP', 'Лаборатория Наносемантика', 'Тензор', 'Соломон', 'the_covert', 'На_Полке']
 class StopUserProgram(Exception):
     ''' Остановка пользовательской программы '''
     
@@ -144,4 +153,83 @@ class UserInteraction:
                 else:
                     return
             break
+    
+    @classmethod
+    async def get_vacancies(cls ,companies):
         
+        print(f'Вы выбрали {companies}')
+        print('Создаем базу данных...')
+        DbSetup.create_db()
+        print('Создаем таблицы...')
+        
+        try:
+            
+            with psycopg2.connect(**DbSetup.config) as conn:
+                with conn.cursor() as curr:
+                    DbSetup.create_table_companies(curr)
+                    DbSetup.create_table_vacancies(curr)
+        finally:
+            conn.close()
+            
+        print('Получаем информацию о работодателе...')
+        
+        async with httpx.AsyncClient() as session:
+            request_list = []
+            
+            for company in companies:
+                request_list.append(HhEmpoloyee(name=company, per_page=100, page=0, session=session).response)
+                
+            requests = await asyncio.gather(*request_list) 
+            
+        print('Сохраняем в базу данных работодателей...')
+        
+        company_ids = []
+        companies_name = []          
+        
+        try:
+            with psycopg2.connect(**DbSetup.config) as conn:
+                with conn.cursor() as curr:
+
+                    for item in requests:
+                        
+                        for elem in item['items']: 
+                            if elem['name'] in companies and elem['name'] not in companies_name:
+                                companies_name.append(elem['name'])
+                                employeer = Employeers.model_validate(elem)
+                                company_ids.append(employeer.id_company)
+                                company_to_db = list(employeer.model_dump().values())
+                            
+                        try:
+                            DbSetup.fill_companies(curr=curr, items=company_to_db)
+                            
+                        except Error:
+                            print(f'Компания {employeer.company_name} уже была сохранена')
+                            
+                    print('Сохранение успешно завершено')
+        finally:
+            conn.close()
+        
+        print('Получаем вакансии от работодателей...')
+        vacancies_of_id = HhVacancies(name=None, per_page=100, page=0, employer_id=company_ids, town=None).response
+        vacancies = [Vacancy.model_validate(item) for item in vacancies_of_id]
+        vacancies_to_db = [CorrectValues.correct_list(vacancy.model_dump(exclude=('snippet'))) for vacancy in vacancies]
+        
+        print(f'Было полученно {len(vacancies)} вакансий')
+        print('Сохраняем вакансии в базу данных...')
+      
+        try:
+            
+            with psycopg2.connect(**DbSetup.config) as conn:
+                with conn.cursor() as curr:
+                    for vacancy in vacancies_to_db:
+            
+                        try:  
+                            DbSetup.fill_vacancies(curr=curr, items=vacancy)
+                        except Error:
+                            print(f'Вакансия {vacancy[0]} уже записана') 
+        
+                                
+                    print('Cохранение успешно завершено')
+        finally:
+            conn.close()
+
