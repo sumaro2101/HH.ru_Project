@@ -3,6 +3,7 @@ import psycopg2
 from psycopg2.errors import Error
 import httpx
 import asyncio
+from sys import exit
 from typing import Type, Literal, Union
 
 from src.hh_vacancies.api_hh import HhVacancies
@@ -12,9 +13,10 @@ from src.hh_employes.employeer import Employeers
 from src.utils.save_file import SaveToJson, SaveToCsv, SaveToText
 from src.database.DBSetup import DbSetup
 from src.database.DBManager import DbManager
-from src.utils.correct_tuple import CorrectValues
+from src.utils.correct_values import CorrectValues
 
 COMPANIES = ['kt.team', 'Bell Integrator', 'НИИ Вектор', 'Компэл', 'FINAMP', 'Лаборатория Наносемантика', 'Тензор', 'Соломон', 'the_covert', 'На_Полке']
+
 class StopUserProgram(Exception):
     ''' Остановка пользовательской программы '''
     
@@ -74,7 +76,114 @@ class UserInteraction:
                 return "w"
             case '2':
                 return 'a'
+    @classmethod
+    def _truncate_tables(cls, curr, checker):
+        
+         if checker:
+            print('В базе данных есть записи, хочешь перезаписать их?')
+            cls.user_notification_choise()
+            if input():
+                DbManager.delete_data_tables(curr)
+                print('База данных была очищена')
+            
+    @classmethod
+    async def _get_list_companies(cls, companies, session):
+        
+        request_list = []
+            
+        for company in companies:
+                request_list.append(HhEmpoloyee(name=company, per_page=100, page=0, session=session).response)                
+            
+        return await asyncio.gather(*request_list) 
+    
+    
+    @classmethod
+    def _save_list_companies_into_db(cls, curr, list_companies, companies_name_check):
+        
+        company_ids = []
+        companies_name = [] 
+        count_iteraction = -1    
+        
+        for item in list_companies:
+            count_iteraction += 1
+            company_to_db = None 
+                       
+            for elem in item['items']: 
+                if elem['name'] in companies_name_check and elem['name'] not in companies_name:
+                    employeer = Employeers.model_validate(elem)
+                    
+                    company_ids.append(employeer.id_company)
+                    companies_name.append(elem['name'])
+                    company_to_db = list(employeer.model_dump().values())
                 
+            try:
+                if company_to_db:
+                    DbSetup.fill_companies(curr=curr, items=company_to_db)
+                else:
+                    raise ValueError
+            except ValueError:
+                print(f'Компания {companies_name_check[count_iteraction]} не существует')  
+            except Error:
+                print(f'Компания {employeer.company_name} уже была сохранена')
+            
+        print('Сохранение успешно завершено')
+        
+        return company_ids
+    
+    
+    @classmethod
+    def _requst_to_save(cls, item_to_save):
+        while True:
+            print('\nВ какой тип файла ты хочешь сохранить результат?')
+            print('1. JSON')
+            print('2. TXT')
+            print('3. CSV')
+            print('Нечего из этого отменяет операцию')
+            choice_format = input()
+            if not choice_format or not choice_format.isdigit():
+                break
+            
+            if 0 < int(choice_format) < 4:
+                while True:
+                    
+                    print('\n1. Хочешь переписать файл?')
+                    print('2. Хочешь дополнить файл?')
+                    choice_mode = input()
+                    
+                    if not choice_mode.isdigit():
+                        continue
+                    if cls.validate_int(choice_mode) and int(choice_mode) < 3:
+                        choice_mode = cls._ask_mode(mode=choice_mode)   
+                    else:
+                        continue
+                    
+                    if type(item_to_save) == HhVacancies:
+                        queue_models = Queue()
+                        [queue_models.put(Vacancy.model_validate(item)) for item in item_to_save.response]
+                        cls._ask_format(format=choice_format, mode=choice_mode, queue=queue_models)                  
+                        break
+                    else:
+                        cls._ask_format(format=choice_format, mode=choice_mode, queue=item_to_save) 
+                        break
+                    
+                print('\nХочешь записать в другом формате?')
+                cls.user_notification_choise()
+                print('Если хочешь закрыть программу нажми "1"')
+                choice = input()
+                
+                if choice == '1':
+                    print('\nДо встречи странник! Да прибудет с тобой Таллос!')
+                    exit()
+                    
+                if not choice: 
+                    break
+                
+                continue
+
+            else:
+                return
+            
+            
     @classmethod
     def save_to_file(cls,
                      name: Union[str, None],
@@ -114,122 +223,135 @@ class UserInteraction:
             print(f'На странице {user_page}')
             print(f'Мы нашли {len(vacancies.response)} вакансий')
             print('Ты можешь отменить операцию')
+            cls._requst_to_save(item_to_save=vacancies)
             
-            while True:
-                print('\nВ какой тип файла ты хочешь сохранить результат?')
-                print('1. JSON')
-                print('2. TXT')
-                print('3. CSV')
-                print('Нечего из этого отменяет операцию')
-                choice_format = input()
-                if not choice_format or not choice_format.isdigit():
-                    break
-                
-                if 0 < int(choice_format) < 4:
-                    while True:
-                        print('\n1. Хочешь переписать файл?')
-                        print('2. Хочешь дополнить файл?')
-                        choice_mode = input()
-                        if not choice_mode.isdigit():
-                            continue
-                        if cls.validate_int(choice_mode) and int(choice_mode) < 3:
-                            choice_mode = cls._ask_mode(mode=choice_mode)   
-                        else:
-                            continue
-                        
-                        queue_models = Queue()
-                        [queue_models.put(Vacancy.model_validate(item)) for item in vacancies.response]
-                        cls._ask_format(format=choice_format, mode=choice_mode, queue=queue_models)                  
-                        break
-                    
-                    print('\nХочешь записать в другом формате?')
-                    cls.user_notification_choise()
-                    
-                    if not input(): 
-                        break
-                    
-                    continue
-
-                else:
-                    return
             break
     
     @classmethod
-    async def get_vacancies(cls ,companies):
-        
-        print(f'Вы выбрали {companies}')
-        print('Создаем базу данных...')
-        DbSetup.create_db()
-        print('Создаем таблицы...')
-        
-        try:
+    async def get_vacancies(cls, companies):
+        while True:
             
-            with psycopg2.connect(**DbSetup.config) as conn:
-                with conn.cursor() as curr:
-                    DbSetup.create_table_companies(curr)
-                    DbSetup.create_table_vacancies(curr)
-        finally:
-            conn.close()
+            print(f'Вы выбрали {companies}')
+            print('Создаем базу данных...')
+            DbSetup.create_db()
+            print('Создаем таблицы...')
             
-        print('Получаем информацию о работодателе...')
-        
-        async with httpx.AsyncClient() as session:
-            request_list = []
-            
-            for company in companies:
-                request_list.append(HhEmpoloyee(name=company, per_page=100, page=0, session=session).response)
+            try:
+                with psycopg2.connect(**DbSetup.config) as conn:
+                    with conn.cursor() as curr:
+                        DbSetup.create_table_companies(curr)
+                        DbSetup.create_table_vacancies(curr)
+            finally:
+                conn.close()
                 
-            requests = await asyncio.gather(*request_list) 
+            try:
+                with psycopg2.connect(**DbSetup.config) as conn:
+                    with conn.cursor() as curr:
+                       cls._truncate_tables(curr=curr, checker=DbManager.check_fill_table(curr)[0][0])
+            finally:
+                conn.close()
+                
+            print('Получаем информацию о работодателе...')
+            async with httpx.AsyncClient() as session:
+                list_companies = await cls._get_list_companies(companies=companies, session=session)
+                    
+            print('Сохраняем в базу данных работадателей...')
             
-        print('Сохраняем в базу данных работодателей...')
-        
-        company_ids = []
-        companies_name = []          
-        
-        try:
-            with psycopg2.connect(**DbSetup.config) as conn:
-                with conn.cursor() as curr:
-
-                    for item in requests:
+            try:
+                with psycopg2.connect(**DbSetup.config) as conn:
+                    with conn.cursor() as curr:
+                        company_ids = cls._save_list_companies_into_db(curr=curr, list_companies=list_companies, companies_name_check=companies)      
+            finally:
+                conn.close()
+            
+            print('Получаем вакансии от работадателей...')
+            
+            page = 0
+            while True:
+                
+                if not company_ids:
+                    print('Нет работадалетей для поиска')
+                    break
+                vacancies_of_id = HhVacancies(name=None, per_page=100, page=page, employer_id=company_ids, town=None, convert_to_RUB=True).response
+                vacancies = [Vacancy.model_validate(item) for item in vacancies_of_id]
+                vacancies_to_db = [CorrectValues.correct_list(vacancy.model_dump(exclude=('snippet'))) for vacancy in vacancies]
+                
+                print(f'Было полученно {len(vacancies)} вакансий')
+                print('Сохраняем вакансии в базу данных...')
+            
+                try:
+                    with psycopg2.connect(**DbSetup.config) as conn:
+                        with conn.cursor() as curr:
+                            for vacancy in vacancies_to_db:
+                                try:  
+                                    DbSetup.fill_vacancies(curr=curr, items=vacancy)
+                                except Error:
+                                    print(f'Вакансия {vacancy[0]} уже записана') 
+                            print('Cохранение успешно завершено')
+                finally:
+                    conn.close()
+                    
+                    if len(vacancies) == 0:
+                        print('К сожалению вакансий больше нет')
+                        break
+                    if len(vacancies) == 100:
+                        print('Нужно больше вакансий?')
+                        cls.user_notification_choise()
+                        if input():
+                            page += 1
+                            continue
+                        else:
+                            break
+                    break
+                
+            while True:
+                if not company_ids:
+                    break
+                print('Выбери в каком виде ты хочешь получить данные')
+                print('1.Cписок всех компаний и количество вакансий у каждой компании')
+                print('2.Cписок всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию')
+                print('3.Средняя зарпалата по вакансиям')
+                print('4.Cписок всех вакансий, у которых зарплата выше средней по всем вакансиям.')
+                print('5.Cписок всех вакансий, в названии которых содержатся переданные в метод слова, например python.')
+                choice_format_data = input()
+                if not choice_format_data:
+                    break
+                try:
+                    with psycopg2.connect(**DbSetup.config) as conn:
+                        with conn.cursor() as curr:
+                            
+                            match choice_format_data:
+                                case '1':
+                                    choice_format_data = DbManager.get_companies_and_vacancies_count(curr=curr)
+                                case '2':
+                                    choice_format_data = DbManager.get_all_vacancies(curr=curr)
+                                case '3':
+                                    choice_format_data = DbManager.get_avg_salary(curr=curr)
+                                case '4':
+                                    choice_format_data = DbManager.get_vacancies_with_higher_salary(curr=curr)
+                                case '5':
+                                    print('Какое слово ты хочешь назвать?')
+                                    key_word = input()
+                                    choice_format_data = DbManager.get_vacancies_with_keyword(curr=curr, text=key_word)
+                                case _:
+                                    print('Введены не корректные данные')
+                                    continue
+                finally:
+                    conn.close()
+                
+                cls._requst_to_save(item_to_save=choice_format_data)  
                         
-                        for elem in item['items']: 
-                            if elem['name'] in companies and elem['name'] not in companies_name:
-                                companies_name.append(elem['name'])
-                                employeer = Employeers.model_validate(elem)
-                                company_ids.append(employeer.id_company)
-                                company_to_db = list(employeer.model_dump().values())
-                            
-                        try:
-                            DbSetup.fill_companies(curr=curr, items=company_to_db)
-                            
-                        except Error:
-                            print(f'Компания {employeer.company_name} уже была сохранена')
-                            
-                    print('Сохранение успешно завершено')
-        finally:
-            conn.close()
+            print('Хочешь повторить поиск?')
+            cls.user_notification_choise()
+            if input():
+                print('Напиши через запятую(",") интересующие тебя компании')
+                print(f'Если пропустишь то выберется стандартный набор компаний {COMPANIES}')
+                companies = input()
+                if companies:
+                    companies = companies.split(',')
+                    continue
+                else:
+                    companies = COMPANIES
+                    continue  
+            break
         
-        print('Получаем вакансии от работодателей...')
-        vacancies_of_id = HhVacancies(name=None, per_page=100, page=0, employer_id=company_ids, town=None).response
-        vacancies = [Vacancy.model_validate(item) for item in vacancies_of_id]
-        vacancies_to_db = [CorrectValues.correct_list(vacancy.model_dump(exclude=('snippet'))) for vacancy in vacancies]
-        
-        print(f'Было полученно {len(vacancies)} вакансий')
-        print('Сохраняем вакансии в базу данных...')
-      
-        try:
-            
-            with psycopg2.connect(**DbSetup.config) as conn:
-                with conn.cursor() as curr:
-                    for vacancy in vacancies_to_db:
-            
-                        try:  
-                            DbSetup.fill_vacancies(curr=curr, items=vacancy)
-                        except Error:
-                            print(f'Вакансия {vacancy[0]} уже записана') 
-        
-                                
-                    print('Cохранение успешно завершено')
-        finally:
-            conn.close()
-

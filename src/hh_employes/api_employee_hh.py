@@ -1,14 +1,7 @@
 from pydantic import ConfigDict, HttpUrl, Field
-from typing import Any, Union, ClassVar, Dict, List, Type
+from typing import Any, Union, ClassVar, Dict, List
 
-from queue import Queue
-from src.utils.correct_tuple import CorrectValues
-import httpx
-import asyncio
 from src.abstract.abstract_classes import AbstractApi
-from src.hh_employes.employeer import Employeers
-from src.hh_vacancies.api_hh import HhVacancies
-from src.hh_vacancies.vacancies import Vacancy
 
 
 class HhEmpoloyee(AbstractApi):

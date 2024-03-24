@@ -39,7 +39,7 @@ class MixinConvert(BaseModel, extra='allow'):
         rates = ApiChange(symbols=list_)
         
         if rates.ex_change.get('rates'):
-            return rates.ex_change
+            return rates.ex_change['rates']
 
     def _convert_valute(self, class_, list_: List[Dict]) -> List[Dict]:
         """Метод который проходится по списку с объетами и меняет 
@@ -53,14 +53,16 @@ class MixinConvert(BaseModel, extra='allow'):
         """    
             
         converted = list_
-        if self.get_rate_currency(self._make_list_for_convert(list_)):
+        rate_dict = self.get_rate_currency(self._make_list_for_convert(list_))
+        if rate_dict:
             for item in converted:
                 if item['salary']['currency'] != 'RUR':
                     valute_item = item['salary']['from']
-                    valute_rate = self.get_rate_currency(self._make_list_for_convert(list_))[item['salary']['currency']]
+                    valute_rate = rate_dict[item['salary']['currency']]
                     
                     item['salary']['from'] = int(valute_item / valute_rate)
                     if item['salary']['to']:
+                        valute_item = item['salary']['to']
                         item['salary']['to'] = int(valute_item / valute_rate)
                     
         class_._response = converted

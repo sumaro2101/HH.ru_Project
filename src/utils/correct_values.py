@@ -18,3 +18,10 @@ class CorrectValues:
         
         return correct_tuple
     
+    @classmethod
+    def correct_name_companies(cls, list_companies):
+        result = list_companies.split(',')
+        result = [item.strip() for item in result]
+        return result
+    
+    

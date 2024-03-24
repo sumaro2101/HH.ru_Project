@@ -67,6 +67,8 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
         for item in ready_list:
             if item['salary']['from'] is None:
                 item['salary']['from'] = 0
+            if item['salary']['to'] is None:
+                item['salary']['to'] = 0
                 
         return ready_list
     

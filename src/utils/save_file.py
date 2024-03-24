@@ -1,9 +1,11 @@
+import json
 from pydantic import DirectoryPath
 from queue import Queue
-from typing import Literal, Type
+from typing import Literal, Type, Union, List
 from csv import DictWriter
 
 from src.abstract.abstract_classes import AbstractSaveFile
+from src.hh_vacancies.vacancies import Vacancy
         
 
 class SaveToJson(AbstractSaveFile):
@@ -12,7 +14,7 @@ class SaveToJson(AbstractSaveFile):
     
     mode: Literal['w', 'a'] = 'w'
   
-    def save_to_file(self, vacance: Type[Queue],
+    def save_to_file(self, vacance: Union[Type[Queue], List[List]],
                      path: DirectoryPath ='vacancies.json') -> None:
         """Сохранeние файла типа JSON
 
@@ -23,9 +25,12 @@ class SaveToJson(AbstractSaveFile):
               
         with open(path, self.mode, encoding='utf-8') as file:
             
-            while vacance.qsize() != 0:
-                item = vacance.get()
-                file.write(item.model_dump_json(indent=2, by_alias=True))
+            if type(vacance) == Queue:
+                while vacance.qsize() != 0:
+                    item = vacance.get()
+                    file.write(item.model_dump_json(indent=2, by_alias=True))
+            else: 
+                file.write(json.dumps(vacance, ensure_ascii=False, indent=1, default=str))
                 
     def change_to_file(self, path):
         pass
@@ -92,16 +97,3 @@ class SaveToCsv(AbstractSaveFile):
     def delete_of_file(self, path):
         pass
     
-    
-class SaveToDb(AbstractSaveFile):
-    """Класс для работы с БазойДанных
-    """    
-    
-    def save_to_file(self, vacance, path):
-        pass
-    
-    def change_to_file(self, path):
-        pass
-    
-    def delete_of_file(self, path):
-        pass
