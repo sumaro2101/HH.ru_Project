@@ -1,10 +1,38 @@
-from src.user_intaraction import UserInteraction, StopUserProgram
-
+from src.utils.user_intaraction import UserInteraction, StopUserProgram, COMPANIES
+from src.utils.correct_values import CorrectValues
+import asyncio
+import sys
 
 def main():
     print('Приветствую тебя странник')
     
     while True:
+        
+        print('Ищешь вакансии компаний?')
+        UserInteraction.user_notification_choise()
+        while True:
+            
+            if not input():
+                break
+            else:
+                print('\nНапиши через запятую(",") интересующие тебя компании')
+                print(f'Если пропустишь то выберется стандартный набор компаний {COMPANIES}\n')
+                
+                companies = input()
+                if companies:
+                    companies = CorrectValues.correct_name_companies(companies)
+                else: 
+                    companies = COMPANIES
+                asyncio.run(UserInteraction.get_vacancies(companies=companies))
+                
+                print('\nЖелаешь выбрать другой вид поиска?')
+                UserInteraction.user_notification_choise()
+                if input():
+                    break
+                else:
+                    print('\nДо встречи странник! Да прибудет с тобой Таллос!')
+                    sys.exit()
+                    
         print('Какую професcию ты ищешь?')
         prof = input()
         if not prof:

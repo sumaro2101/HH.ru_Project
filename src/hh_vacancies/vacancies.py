@@ -1,19 +1,7 @@
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, computed_field
-from abc import ABC
-from typing import Union, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
+from typing import Union, List
 
-class AbstractVacancies(BaseModel, ABC):
-    
-    name: str
-    area: Dict
-    professional_roles: List
-    salary: Dict
-    experience: Dict
-    employment: Dict
-    schedule: Dict
-    alternate_url: HttpUrl
-    snippet: Dict
-    employer: Dict
+from src.abstract.abstract_classes import AbstractVacancies
     
 class Area(BaseModel):
     name: Union[str, None]
@@ -41,7 +29,8 @@ class Snippet(BaseModel):
     
 class Employer(BaseModel):
     name : Union[str, None]
-    alternate_url: Union[HttpUrl, None]
+    alternate_url: Union[str, None] = Field(default=None)
+    id_: Union[int, None] = Field(alias='id', default=None)
    
     
 class Vacancy(AbstractVacancies):
@@ -50,6 +39,7 @@ class Vacancy(AbstractVacancies):
     
     model_config = ConfigDict(frozen=True)
     
+    id_: int = Field(alias='id')
     name: str
     area: Area 
     professional_roles: List[ProfessionalRoles]
@@ -57,6 +47,6 @@ class Vacancy(AbstractVacancies):
     experience: Experience
     employment: Employment
     schedule: Schedule
-    alternate_url: HttpUrl
+    alternate_url: str
     snippet: Snippet
     employer: Employer

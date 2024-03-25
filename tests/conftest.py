@@ -1,7 +1,7 @@
 import pytest
 import json
-from src.api_hh import HhVacancies
-from src.vacancies import Vacancy
+from src.hh_vacancies.api_hh import HhVacancies
+from src.hh_vacancies.vacancies import Vacancy
 from queue import Queue
 
 
@@ -14,13 +14,13 @@ def json_file():
 @pytest.fixture(scope='class')
 def init_api(json_file):
     api_hh = HhVacancies(name=None, per_page=None, page=None, town=None)
-    api_hh._sort_json_response(json_file)
+    api_hh._sort_json_response(HhVacancies ,json_file)
     return api_hh
 
 @pytest.fixture(scope='class')
 def init_api_convert(json_file):
     api_hh = HhVacancies(name=None, per_page=None, page=None, convert_to_RUB=True, town=None)
-    api_hh._convert_valute(json_file)
+    api_hh._convert_valute(HhVacancies ,json_file)
     return api_hh
 
 @pytest.fixture(scope='function')
@@ -37,6 +37,7 @@ def temp_file(tmpdir_factory):
 @pytest.fixture(scope='function')
 def test_model():
     test_dict = {
+        'id': 7289180,
         'name': 'Junior-разработчик',
         'area': {'id': '1', 'name': 'Москва', 'url': 'https://api.hh.ru/areas/1'},
         'professional_roles': [{'id': '96', 'name': 'Программист, разработчик'}],
