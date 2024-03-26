@@ -11,7 +11,7 @@ class MixinConvert(BaseModel, extra='allow'):
      
     convert_to_RUB: bool = False
     
-    def _make_list_for_convert(self, list_: List[Dict]):
+    def _make_list_for_convert(self, list_: List[Dict]) -> List[str]:
         """Метод который проходится по списку объектов и выводит иностранные валюты
 
         Args:
@@ -26,7 +26,8 @@ class MixinConvert(BaseModel, extra='allow'):
         
         return currencies
     
-    def get_rate_currency(self, list_: List[str]) -> Dict:
+    
+    def get_rate_currency(self, list_: List[str]) -> Union[Dict, None]:
         """API которое получает список валют которые войдут в запрос
 
         Args:
@@ -40,6 +41,8 @@ class MixinConvert(BaseModel, extra='allow'):
         
         if rates.ex_change.get('rates'):
             return rates.ex_change['rates']
+        return None
+
 
     def _convert_valute(self, class_, list_: List[Dict]) -> List[Dict]:
         """Метод который проходится по списку с объетами и меняет 
@@ -53,18 +56,23 @@ class MixinConvert(BaseModel, extra='allow'):
         """    
             
         converted = list_
-        rate_dict = self.get_rate_currency(self._make_list_for_convert(list_))
-        if rate_dict:
-            for item in converted:
-                if item['salary']['currency'] != 'RUR':
-                    valute_item = item['salary']['from']
-                    valute_rate = rate_dict[item['salary']['currency']]
-                    
-                    item['salary']['from'] = int(valute_item / valute_rate)
-                    if item['salary']['to']:
-                        valute_item = item['salary']['to']
-                        item['salary']['to'] = int(valute_item / valute_rate)
-                    
+        list_for_convert = self._make_list_for_convert(list_)
+        if list_for_convert:
+            rate_dict = self.get_rate_currency(list_for_convert)
+            if rate_dict:
+                for item in converted:
+                    if item['salary']['currency'] != 'RUR':
+                        valute_item = item['salary']['from']
+                        valute_rate = rate_dict[item['salary']['currency']]
+                        
+                        item['salary']['from'] = int(valute_item / valute_rate)
+                        if item['salary']['to']:
+                            valute_item = item['salary']['to']
+                            item['salary']['to'] = int(valute_item / valute_rate)
+            else:
+                print('\nКоличество попыток запросса в API exchange достигла лимита')
+                print('Конвертация иностранной валюты невозможна\n')  
+                                 
         class_._response = converted
 
 

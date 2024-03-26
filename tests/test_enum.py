@@ -1,6 +1,5 @@
 import pytest
-from src.enum_town import EnumTown
-from src.api_hh import HhVacancies
+from src.utils.enum_town import EnumTown
 
 @pytest.mark.enum
 class TestEnum:

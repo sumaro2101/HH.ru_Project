@@ -2,7 +2,10 @@ from configparser import ConfigParser
 import os
 
 path_to_ini = os.path.join('src', 'database', 'database.ini')
-def config(filename=path_to_ini, section='postgresql'):
+
+def config(filename=path_to_ini, section='postgresql') -> dict:
+    """Функция конфигурации баз данных
+    """    
     
     parser = ConfigParser()
     parser.read(filename)

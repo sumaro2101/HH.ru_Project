@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod, abstractclassmethod
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
 from typing import Dict, List
 
 class AbstractApi(BaseModel, ABC):
@@ -16,6 +16,8 @@ class AbstractApi(BaseModel, ABC):
     
     
 class AbstractVacancies(BaseModel, ABC):
+    """Абстракция класса вакансия
+    """    
     
     name: str
     area: Dict
@@ -30,6 +32,8 @@ class AbstractVacancies(BaseModel, ABC):
     
 
 class AbstractEmployeer(BaseModel, ABC):
+    """Абстракция класс работадатель
+    """    
     
     id_company: int
     company_name: str
@@ -59,6 +63,8 @@ class AbstractSaveFile(BaseModel, ABC):
     
     
 class AbstractDb(BaseModel, ABC):
+    """Абстрактный класс баз данных
+    """    
     
     @abstractclassmethod
     def get_companies_and_vacancies_count(cls, curr):

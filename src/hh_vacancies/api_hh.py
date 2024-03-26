@@ -56,7 +56,7 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
             
         return self._response
     
-    def _remove_null_instanse(self, list_: List[Dict]):
+    def _remove_null_instanse(self, list_: List[Dict]) -> List[Dict]:
         """Метод переработки объектов в запросе и замена None на 0 в salary
 
         Args:
@@ -80,7 +80,7 @@ class HhVacancies(MixinTown ,MixinSort, MixinConvert, AbstractApi):
         
         HhVacancies._response = self._remove_null_instanse(request_api.json()['items'])
     
-    def _make_params(self):
+    def _make_params(self) -> Dict:
         """метод который собирает параметры для запроса
         """  
               

@@ -59,7 +59,4 @@ class ApiChange(AbstractApi):
             &base={self.__base}', headers=self._make_header())
         response = requests_api.json()
         
-        if requests_api.status_code != 200:
-            return None
-        
         return response

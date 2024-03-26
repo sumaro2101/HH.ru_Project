@@ -1,5 +1,5 @@
 import pytest
-from src.vacancies import Vacancy
+from src.hh_vacancies.vacancies import Vacancy
 
 @pytest.mark.vacancy
 class TestVacancy:

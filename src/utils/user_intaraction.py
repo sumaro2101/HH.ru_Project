@@ -1,10 +1,12 @@
 from queue import Queue
 import psycopg2
 from psycopg2.errors import Error
+from psycopg2.extensions import cursor
 import httpx
+from httpx import AsyncClient
 import asyncio
 from sys import exit
-from typing import Type, Literal, Union
+from typing import Type, Literal, Union, List, Callable, Coroutine, Any
 
 from src.hh_vacancies.api_hh import HhVacancies
 from src.hh_vacancies.vacancies import Vacancy
@@ -14,7 +16,9 @@ from src.utils.save_file import SaveToJson, SaveToCsv, SaveToText
 from src.database.DBSetup import DbSetup
 from src.database.DBManager import DbManager
 from src.utils.correct_values import CorrectValues
+from src.hh_employes.employeer import VacanceTuple, CompaniesVacancies, AllVacancies, AVGSalary
 
+#Стандартный список компаний
 COMPANIES = ['kt.team', 'Bell Integrator', 'НИИ Вектор', 'Компэл', 'FINAMP', 'Лаборатория Наносемантика', 'Тензор', 'Соломон', 'the_covert', 'На_Полке']
 
 class StopUserProgram(Exception):
@@ -39,10 +43,12 @@ class UserInteraction:
         
         return True
     
+    
     @classmethod
     def user_notification_choise(cls):
         print('Если нет, нажми Enter')
         print('Если да, введи любой символ')
+        
         
     @classmethod
     def _ask_format(self, format: str, 
@@ -66,6 +72,7 @@ class UserInteraction:
             case '3':
                 SaveToCsv(mode=mode).save_to_file(vacance=queue)
   
+  
     @classmethod         
     def _ask_mode(self, mode: Literal['1', '2']) -> Literal['w', 'a']:
         """Выбор типа записи
@@ -76,18 +83,28 @@ class UserInteraction:
                 return "w"
             case '2':
                 return 'a'
+     
+            
     @classmethod
-    def _truncate_tables(cls, curr, checker):
+    def _truncate_tables(cls, curr: cursor, checker: bool) -> None:
+        """Очищает таблицы если они заполнены
+
+        Args:
+            checker (bool): метод проверяющий заполненость таблиц
+        """        
         
-         if checker:
-            print('В базе данных есть записи, хочешь перезаписать их?')
+        if checker:
+            print('\nВ базе данных есть записи, хочешь перезаписать их?\n')
             cls.user_notification_choise()
             if input():
                 DbManager.delete_data_tables(curr)
                 print('База данных была очищена')
+        
             
     @classmethod
-    async def _get_list_companies(cls, companies, session):
+    async def _get_list_companies(cls, companies: List[str], session: AsyncClient) -> Callable[..., Coroutine]:
+        """Асинхронный метод запросов работадателей
+        """        
         
         request_list = []
             
@@ -98,7 +115,74 @@ class UserInteraction:
     
     
     @classmethod
-    def _save_list_companies_into_db(cls, curr, list_companies, companies_name_check):
+    def _get_town(cls, curr: cursor) -> None:
+        """Поиск вакансий по городу
+        """        
+        
+        print('Какой город ты ищещь?')
+        
+        list_of_town = [item[0] for item in DbManager.get_count_town(curr=curr)]
+        
+        while True:
+            print('У тебя есть выбор из таких городов:')
+            print(', '.join(list_of_town))
+            print('Если хочешь остановить поиск нажми enter')
+            choise = input()
+            if choise:
+                if choise in list_of_town:
+                    print(f'Поиск по городу {choise}...')
+                    result = DbManager.get_vacancies_of_town(curr=curr, town=choise)
+                    print(f'Мы нашли {len(result)} вакансий в вашом городе')
+                    return result
+                
+                else:
+                    print('Такого города нет')
+                    continue
+            else:
+                break
+    
+    
+    @classmethod
+    def _get_keyword(cls, curr: cursor) -> None:
+        """Поиск вакансий по имени
+        """        
+        
+        while True:
+            print('\nКакое слово ты хочешь назвать?')
+            print('Если хочешь отменить поиск нажми enter')
+            key_word = input()
+            
+            if key_word:
+                choice_format_data = DbManager.get_vacancies_with_keyword(curr=curr, text=key_word)
+                
+                if choice_format_data:
+                    print(f'Поиск по слову {key_word} дал результат в виде {len(choice_format_data)} вакансий\n')
+                    return choice_format_data
+                else:
+                    print('Поиск не дал результатов')
+                    print('Хочешь продолжить?\n')
+                    cls.user_notification_choise()
+                    
+                    if input():
+                        continue
+                    else:
+                        break
+            else:
+                break
+    
+    
+    @classmethod
+    def _save_list_companies_into_db(cls, curr: cursor, list_companies: List, companies_name_check: List[str]) -> List[int]:
+        """Сохранение компаний в таблицу
+
+        Args:
+            curr (cursor): курсор подключения
+            list_companies (List): список компаний для сохранения
+            companies_name_check (List[str]): список компаний для проверки дублироемости
+
+        Returns:
+            List[int]: возвращает список с айди сохраненых компаний для дальнейшей обработки
+        """        
         
         company_ids = []
         companies_name = [] 
@@ -132,7 +216,10 @@ class UserInteraction:
     
     
     @classmethod
-    def _requst_to_save(cls, item_to_save):
+    def _requst_to_save(cls, item_to_save: Any) -> None:
+        """Метод для сохранения данных в файлы
+        """        
+        
         while True:
             print('\nВ какой тип файла ты хочешь сохранить результат?')
             print('1. JSON')
@@ -227,16 +314,24 @@ class UserInteraction:
             
             break
     
+    
     @classmethod
-    async def get_vacancies(cls, companies):
+    async def get_vacancies(cls, companies: List[str]) -> None:
+        """Ядро программы для обработки компаний и вакансий
+
+        Args:
+            companies (List[str]): Список компаний для обработки
+        """ 
+        #Основной цикл для работы всей программы      
         while True:
-            
-            print(f'Вы выбрали {companies}')
+            #Создание базы данных
+            print(f'\nВы выбрали {companies}')
             print('Создаем базу данных...')
             DbSetup.create_db()
-            print('Создаем таблицы...')
+            print('\nСоздаем таблицы...')
             
             try:
+                #Создание таблиц
                 with psycopg2.connect(**DbSetup.config) as conn:
                     with conn.cursor() as curr:
                         DbSetup.create_table_companies(curr)
@@ -245,41 +340,47 @@ class UserInteraction:
                 conn.close()
                 
             try:
+                #Очистка старых данных по требованию
                 with psycopg2.connect(**DbSetup.config) as conn:
                     with conn.cursor() as curr:
                        cls._truncate_tables(curr=curr, checker=DbManager.check_fill_table(curr)[0][0])
             finally:
                 conn.close()
                 
-            print('Получаем информацию о работодателе...')
+            print('\nПолучаем информацию о работодателей...')
+            #Асинхронные запросы на получениие данных всех работадателей из списка
             async with httpx.AsyncClient() as session:
                 list_companies = await cls._get_list_companies(companies=companies, session=session)
                     
-            print('Сохраняем в базу данных работадателей...')
+            print('\nСохраняем в базу данных работадателей...')
             
             try:
+                #Сохранение работадателей в таблицу
                 with psycopg2.connect(**DbSetup.config) as conn:
                     with conn.cursor() as curr:
                         company_ids = cls._save_list_companies_into_db(curr=curr, list_companies=list_companies, companies_name_check=companies)      
             finally:
                 conn.close()
             
-            print('Получаем вакансии от работадателей...')
+            print('\nПолучаем вакансии от работадателей...')
             
             page = 0
+            #Цикл поиска вакансий от работадателей
             while True:
                 
+                #Поиск вакансий от работадателей
                 if not company_ids:
-                    print('Нет работадалетей для поиска')
+                    print('Нет работадалетей для поиска\n')
                     break
                 vacancies_of_id = HhVacancies(name=None, per_page=100, page=page, employer_id=company_ids, town=None, convert_to_RUB=True).response
                 vacancies = [Vacancy.model_validate(item) for item in vacancies_of_id]
                 vacancies_to_db = [CorrectValues.correct_list(vacancy.model_dump(exclude=('snippet'))) for vacancy in vacancies]
                 
-                print(f'Было полученно {len(vacancies)} вакансий')
+                print(f'\nБыло полученно {len(vacancies)} вакансий')
                 print('Сохраняем вакансии в базу данных...')
             
                 try:
+                    #Сохранение вакансий в таблицу
                     with psycopg2.connect(**DbSetup.config) as conn:
                         with conn.cursor() as curr:
                             for vacancy in vacancies_to_db:
@@ -287,15 +388,15 @@ class UserInteraction:
                                     DbSetup.fill_vacancies(curr=curr, items=vacancy)
                                 except Error:
                                     print(f'Вакансия {vacancy[0]} уже записана') 
-                            print('Cохранение успешно завершено')
+                            print('Cохранение успешно завершено\n')
                 finally:
                     conn.close()
                     
                     if len(vacancies) == 0:
-                        print('К сожалению вакансий больше нет')
+                        print('К сожалению вакансий больше нет\n')
                         break
                     if len(vacancies) == 100:
-                        print('Нужно больше вакансий?')
+                        print('\nНужно больше вакансий?')
                         cls.user_notification_choise()
                         if input():
                             page += 1
@@ -303,52 +404,70 @@ class UserInteraction:
                         else:
                             break
                     break
-                
+            #Цикл для вывода данных и сохранения в файлы   
             while True:
+                #Список возможных вариантов вывода данных
                 if not company_ids:
                     break
-                print('Выбери в каком виде ты хочешь получить данные')
+                print('\nВыбери в каком виде ты хочешь получить данные')
                 print('1.Cписок всех компаний и количество вакансий у каждой компании')
                 print('2.Cписок всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию')
                 print('3.Средняя зарпалата по вакансиям')
                 print('4.Cписок всех вакансий, у которых зарплата выше средней по всем вакансиям.')
                 print('5.Cписок всех вакансий, в названии которых содержатся переданные в метод слова, например python.')
+                print('6.Список всех вакансий по определенном городу\n')
                 choice_format_data = input()
                 if not choice_format_data:
                     break
                 try:
+                    #Вывод данных исходя из выбора в списке
                     with psycopg2.connect(**DbSetup.config) as conn:
                         with conn.cursor() as curr:
-                            
                             match choice_format_data:
                                 case '1':
                                     choice_format_data = DbManager.get_companies_and_vacancies_count(curr=curr)
+                                    list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=CompaniesVacancies, list_tuple=choice_format_data)
                                 case '2':
                                     choice_format_data = DbManager.get_all_vacancies(curr=curr)
+                                    list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=AllVacancies, list_tuple=choice_format_data)
                                 case '3':
                                     choice_format_data = DbManager.get_avg_salary(curr=curr)
+                                    list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=AVGSalary, list_tuple=choice_format_data)
                                 case '4':
                                     choice_format_data = DbManager.get_vacancies_with_higher_salary(curr=curr)
+                                    list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=VacanceTuple, list_tuple=choice_format_data)
                                 case '5':
-                                    print('Какое слово ты хочешь назвать?')
-                                    key_word = input()
-                                    choice_format_data = DbManager.get_vacancies_with_keyword(curr=curr, text=key_word)
+                                    choice_format_data = cls._get_keyword(curr=curr)
+                                    if choice_format_data:
+                                        list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=VacanceTuple, list_tuple=choice_format_data)
+                                case '6':
+                                    choice_format_data = cls._get_town(curr=curr)
+                                    if choice_format_data:
+                                        list_of_vacancies_save = CorrectValues.correct_named_tuple(model_parse=VacanceTuple, list_tuple=choice_format_data)
                                 case _:
-                                    print('Введены не корректные данные')
+                                    print('Введены не корректные данные\n')
                                     continue
                 finally:
                     conn.close()
-                
-                cls._requst_to_save(item_to_save=choice_format_data)  
-                        
-            print('Хочешь повторить поиск?')
+                #Метод сохранения данных в файлы(В методе цикл)   
+                if choice_format_data:
+                    cls._requst_to_save(item_to_save=list_of_vacancies_save)
+                else:
+                    print('Хочешь выбрать другие варианты выборки?')
+                    cls.user_notification_choise()
+                    if input():
+                        continue
+                   
+            print('\nХочешь повторить поиск по работадателям?')
             cls.user_notification_choise()
+            
             if input():
-                print('Напиши через запятую(",") интересующие тебя компании')
-                print(f'Если пропустишь то выберется стандартный набор компаний {COMPANIES}')
+                print('\nНапиши через запятую(",") интересующие тебя компании')
+                print(f'Если пропустишь то выберется стандартный набор компаний {COMPANIES}\n')
                 companies = input()
+                
                 if companies:
-                    companies = companies.split(',')
+                    companies = CorrectValues.correct_name_companies(companies)
                     continue
                 else:
                     companies = COMPANIES

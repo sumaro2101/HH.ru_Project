@@ -1,11 +1,14 @@
 from src.database.config import config
 from pydantic import BaseModel
-from typing import ClassVar, Dict
+from typing import ClassVar, Dict, List, Union, Tuple
+
 import psycopg2
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, connection, cursor
 from psycopg2.errors import Error
 
 class DbSetup(BaseModel):
+    """Класс создания базы данных и создания таблиц
+    """    
     
     config: ClassVar[Dict] = config()
     db_name: ClassVar[str] = 'hhru'
@@ -14,13 +17,19 @@ class DbSetup(BaseModel):
     
     
     @classmethod
-    def _get_connect(cls, config):
+    def _get_connect(cls, config: Dict) -> connection:
+        """Подключение к среде psql
+        """   
+             
         connect = psycopg2.connect(**config)
         return connect
     
     
     @classmethod
-    def create_db(cls):
+    def create_db(cls) -> None:
+        """Cоздание базы данных
+        """    
+            
         connect = cls._get_connect(cls.config)
         connect.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         curr = connect.cursor()
@@ -28,10 +37,10 @@ class DbSetup(BaseModel):
         try:
             create_db_sql = f'CREATE DATABASE {cls.db_name}'
             curr.execute(create_db_sql)
-            print(f'База данных {cls.db_name} успешно создана')
+            print(f'База данных {cls.db_name} успешно создана\n')
             
         except (Exception, Error):
-            print(f'База Данных {cls.db_name} уже создана')
+            print(f'База Данных {cls.db_name} уже создана\n')
             
         finally:
             curr.close()
@@ -41,7 +50,9 @@ class DbSetup(BaseModel):
     
     
     @classmethod
-    def create_table_companies(cls, curr):
+    def create_table_companies(cls, curr: cursor) -> None:
+        """Создание таблицы компании
+        """        
                 
         table = f'CREATE TABLE {cls.companies_table}\
             (id_company    int PRIMARY KEY,\
@@ -58,7 +69,9 @@ class DbSetup(BaseModel):
 
 
     @classmethod
-    def create_table_vacancies(cls, curr):
+    def create_table_vacancies(cls, curr: cursor) -> None:
+        """Создание таблицы вакансии
+        """        
         
         table = f'CREATE TABLE {cls.vacancies_table}\
             (id_vacancy            int PRIMARY KEY,\
@@ -78,19 +91,25 @@ class DbSetup(BaseModel):
             
         try:
             curr.execute(table)
-            print(f'Таблица {cls.vacancies_table} успешно создана')
+            print(f'Таблица {cls.vacancies_table} успешно создана\n')
         except Error:
-            print(f'{cls.vacancies_table} уже создана')  
+            print(f'{cls.vacancies_table} уже создана\n')  
      
      
     @classmethod
-    def fill_companies(cls, curr, items):
+    def fill_companies(cls, curr: cursor, items: Union[List, Tuple]) -> None:
+        """Заполнение таблицы компании данными
+        """
+                
         curr.execute(f'INSERT INTO {cls.companies_table}\
             VALUES (%s,%s,%s,%s,%s,%s);', items)
 
         
     @classmethod  
-    def fill_vacancies(cls, curr, items):
+    def fill_vacancies(cls, curr: cursor, items: Union[List, Tuple]) -> None:
+        """Заполнение таблицы вакансии данными
+        """
+                
         curr.execute(f'INSERT INTO {cls.vacancies_table}\
             ( name_vacancy, area, professional_roles, salary_from, salary_to,\
             salary_currency, experience, employment, schedule, alternate_url,\
